@@ -32,8 +32,8 @@
         <logMsg></logMsg>
       </div>
     </div>
-    <div class="third_btn">第三方账号登录</div>
-    <img @click="checkState" class="wx_btn" src="../../../images/logIn/wx.png" alt="img">
+    <!-- <div class="third_btn">第三方账号登录</div>
+    <img @click="checkState" class="wx_btn" src="../../../images/logIn/wx.png" alt="img"> -->
   </div>
 </template>
 
