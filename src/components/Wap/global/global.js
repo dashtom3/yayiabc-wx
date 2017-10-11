@@ -1,8 +1,11 @@
 import axios from 'axios'
 
 export default {
-  baseUrl: 'http://47.93.48.111:6181/api',
+  //正式用url
+  baseUrl: 'http://wap.yayiabc.com:8080/api',
   // baseUrl: 'http://192.168.1.103:8081/api',
+  //测试用ip，不要用ip地址
+  // baseUrl: 'http://47.93.48.111:6181/api'
   qiNiuUrl: 'http://upload-z2.qiniu.com/',
   qiniuShUrl: 'http://orl5769dk.bkt.clouddn.com/',
   success(obj, msg, url) {
