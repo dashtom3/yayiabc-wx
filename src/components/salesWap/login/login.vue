@@ -36,8 +36,8 @@
     </div>
     <!-- <div class="third_btn">其他方式登录</div>
     <img class="wx_btn" src="../../../images/saleman/wechart.png" alt="img"> -->
-    <!-- <div class="third_btn">第三方账号登录</div>
-    <img @click="checkState" class="wx_btn" src="../../../images/logIn/wx.png" alt="img"> -->
+    <div v-show="loginShow" class="third_btn">第三方账号登录</div>
+    <img v-show="loginShow" @click="checkState" class="wx_btn" src="../../../images/logIn/wx.png" alt="img">
   </div>
 </template>
 
@@ -59,10 +59,16 @@
         activeTab: 'tab1',
         isActive1: false,
         isActive2: true,
+        loginShow: false
       }
     },
     created: function () {
       var that = this
+      if (that.isWeiXin()) {
+        that.loginShow = false
+      } else {
+        that.loginShow = true
+      }
     },
     components: {
       logMsg,
@@ -94,6 +100,14 @@
         } else {
           that.isActive1 = true
           that.isActive2 = false
+        }
+      },
+      isWeiXin(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){                   
+          return true; 
+        }else{ 
+          return false; 
         }
       },
       // 微信登录认证信息

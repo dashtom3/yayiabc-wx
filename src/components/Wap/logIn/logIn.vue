@@ -32,8 +32,8 @@
         <logMsg></logMsg>
       </div>
     </div>
-    <!-- <div class="third_btn">第三方账号登录</div>
-    <img @click="checkState" class="wx_btn" src="../../../images/logIn/wx.png" alt="img"> -->
+    <div class="third_btn">第三方账号登录</div>
+    <img @click="checkState" class="wx_btn" src="../../../images/logIn/wx.png" alt="img">
   </div>
 </template>
 
@@ -54,10 +54,16 @@
         activeTab: 'tab1',
         isActive1: false,
         isActive2: true,
+        loginShow: false
       }
     },
     created: function () {
       var that = this
+      if (that.isWeiXin()) {
+        that.loginShow = false
+      } else {
+        that.loginShow = true
+      }
     },
     components: {
       logMsg,
@@ -88,6 +94,14 @@
         },function(e){
           console.log( "未选择日期："+e.message );
         },{title:"请选择日期："});
+      },
+      isWeiXin(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){                   
+          return true; 
+        }else{ 
+          return false; 
+        }
       },
       handleTabChange(val) {
         var that = this
