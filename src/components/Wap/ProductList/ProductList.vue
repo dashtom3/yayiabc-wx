@@ -192,6 +192,7 @@
     /*min-height: px2vw(920);*/
     position: fixed;
     padding-top: px2vw(88);
+    z-index: 0;
     top: px2vw(0);
     left: 0;
     bottom: 0;
@@ -210,7 +211,7 @@
     width: px2vw(568);
     top: px2vw(88);
     right: 0;
-    overflow: scroll;
+    /*overflow: scroll;*/
     -webkit-overflow-scrolling: touch;
   }
 
