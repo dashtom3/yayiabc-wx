@@ -1,6 +1,5 @@
 <template>
   <div class="address_wrap">
-    <div class="backgrounder"></div>
     <div class="box_top">
       <div class="header_top">
         <div @click="toBack" class="header_img_box">
@@ -13,44 +12,43 @@
     </div>
 
     <div class="top_top">
-    <!--地址开始-->
-    <div class="address_box" v-for="(item,index) in addressData">
-      <div class="address">
-        <div class="hovers">
-          <span class="fontColor">{{item.receiverName}}</span>
-          <span class="fontColor iphone">{{item.phone}}</span>
-          <span class="default" v-if="item.isDefault">默认地址</span>
-        </div>
-        <p class="personAddress">{{item.city}}{{item.county}}{{item.receiverDetail}}</p>
-        <div>
-          <div class="img_box">
+      <!--地址开始-->
+      <div class="address_box" v-for="(item,index) in addressData" :key="index">
+        <div class="address">
+          <div class="hovers">
+            <span class="fontColor">{{item.receiverName}}</span>
+            <span class="fontColor iphone">{{item.phone}}</span>
+            <span class="default" v-if="item.isDefault">默认地址</span>
+          </div>
+          <p class="personAddress">{{item.city}}{{item.county}}{{item.receiverDetail}}</p>
+          <div>
+            <div class="img_box">
               <span class="size_img_left" @click="goToAddAddress(index)">
               <img class="size_img" src="../../../images/mine/update.png" alt="">
               <span class="edit">编辑</span>
               </span>
-            <span class="size_img_left2"  @click="deleteAddress(item.receiverId,index)">
+              <span class="size_img_left2"  @click="deleteAddress(item.receiverId,index)">
               <img class="size_img" src="../../../images/mine/delete.png" alt="">
               <span class="delete">删除</span>
               </span>
+            </div>
           </div>
         </div>
       </div>
+      <!--地址结束-->
+
+      <!--无地址显示图片-->
+      <div v-show="addressData.length ==0" class="address_pic">
+        <img  src="../../../images/mine/address_pic.png" alt="">
+      </div>
+
+      <!--末尾-->
     </div>
-    <!--地址结束-->
-
-    <!--无地址显示图片-->
-    <div v-show="addressData.length ==0" class="address_pic">
-      <img  src="../../../images/mine/address_pic.png" alt="">
-    </div>
-
-
     <!--添加地址开始-->
     <div class="addAddress" @click="goToAddAddress(-1)">
       添加地址
     </div>
     <!--添加地址结束-->
-    <!--末尾-->
-    </div>
   </div>
 </template>
 
@@ -114,7 +112,6 @@
         }else {
           this.$router.push({path:'/yayi/mine'})
         }
-
       }
     }
   }
@@ -127,7 +124,13 @@
     margin-bottom: px2vw(113);
   }
   .top_top{
-    margin-top: px2vw(89);
+    position: fixed;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    top: px2vw(88);
+    left: 0;
+    background-color: $borderColor;
+    height: 85vh;
   }
   .header{
     position: absolute;
@@ -206,7 +209,7 @@
     margin-left: px2vw(118);
   }
   .size_img_left2{
-   float: right;
+    float: right;
     margin-right: px2vw(118);
   }
 
@@ -232,15 +235,6 @@
     background-color: $themeColor;
     color: white;
     font-size: 3.733333vw;
-  }
-
-  .backgrounder {
-    position: fixed;
-    top:0;
-    width: 100vw;
-    bottom: 0;
-    background-color: $borderColor;
-    z-index: -1;
   }
   .address_pic{
     width: px2vw(196);

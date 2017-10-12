@@ -610,7 +610,7 @@
           }
         }else{
           MessageBox.confirm('请先登录!').then(action => {
-            self.$router.push({path: '/logIn'})
+            this.$router.push({path: '/logIn'})
           })
         }
       },

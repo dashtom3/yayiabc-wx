@@ -4,45 +4,45 @@
       <div class="hehe">我的收藏</div>
 
       <div @click="back" class="img_bx">&nbsp;&nbsp;&nbsp;
-      <img class="header_back" src="../../../images/logIn/back.png" alt="">
+        <img class="header_back" src="../../../images/logIn/back.png" alt="">
       </div>
 
     </div>
 
     <!--收藏列表开始-->
+    <div class="c-content">
+      <div class="box_position" v-if="collectData !=0">
 
-    <div class="box_position">
-
-      <div class="collect" v-for="(item,index) in collectData">
-        <mt-cell-swipe
-          :right="[
+        <div class="collect" v-for="(item,index) in collectData" :key="index">
+          <mt-cell-swipe
+            :right="[
     {
       content: '取消收藏',
       style: { background: '#3676B5',  padding: '0.8vw', color: '#fff', fontSize: '3.733333vw', lineHeight:'800%'},
         handler: () => deleteHandler(item, index)
     }
   ]">
-        <!--左边图片-->
-        <div class="collect_img">
-          <img :src="item.item_pica" alt="" @click="goProductDetail(item)">
+            <!--左边图片-->
+            <div class="collect_img">
+              <img :src="item.item_pica" alt="" @click="goProductDetail(item)">
+            </div>
+            <!--右边收藏商品信息-->
+            <div class="collect_right">
+              <p class="goods_color">{{item.item_name}}</p>
+              <span class="state" v-if="item.state == 0">失效</span>
+              <p class="goods_color1">{{item.itemBrandName}}</p>
+              <p class="money">￥{{item.item_price}}</p>
+            </div>
+          </mt-cell-swipe>
         </div>
-        <!--右边收藏商品信息-->
-        <div class="collect_right">
-          <p class="goods_color">{{item.item_name}}</p>
-          <p class="goods_color1">{{item.itemBrandName}}</p>
-          <p class="money">￥{{item.item_price}}</p>
-        </div>
-      </mt-cell-swipe>
+      </div>
+      <!--收藏列表结束-->
+
+      <!--无数据显示图片-->
+      <div v-else class="collect_pic">
+        <img  src="../../../images/mine/collect_pic.png" alt="">
       </div>
     </div>
-    <!--收藏列表结束-->
-
-    <!--无数据显示图片-->
-    <div v-show="collectData == 0" class="collect_pic">
-      <img  src="../../../images/mine/collect_pic.png" alt="">
-    </div>
-
-    <div class="max_warp"></div>
     <!--末尾-->
   </div >
 </template>
@@ -64,12 +64,10 @@
     },
     created: function () {
       this.inits();
-
     },
     methods:{
       deleteHandler(item, index) {
         var that = this;
-
         MessageBox.confirm('确定取消收藏么?').then(action => {
           var obj = {
             itemId: item.itemId,
@@ -77,7 +75,7 @@
           };
           that.$store.dispatch('CANCEL_CARGO', obj).then((res) => {
             if (res.data.callStatus === 'SUCCEED') {
-              Toast('取消收藏成功!')
+              Toast('取消收藏成功!');
               that.collectData.splice(index,1);
               // that.getGwcList()
             }
@@ -119,13 +117,13 @@
     color: $themeColor !important;
   }
   /*.mint-cell:last-child{*/
-    /*background-image: none;*/
+  /*background-image: none;*/
   /*}*/
   /*.mint-cell-swipe{*/
-    /*background-image: none;*/
+  /*background-image: none;*/
   /*}*/
   /*.mint-cell-wrapper{*/
-    /*background-image: none;*/
+  /*background-image: none;*/
   /*}*/
 </style>
 
@@ -149,6 +147,11 @@
     width: px2vw(95);
     height: px2vw(88);
   }
+  .box_position{
+    width: 100%;
+    height: 94vh;
+    background-color: #f4f4f4;
+  }
   .top_nox {
     height: px2vw(88);
     line-height: px2vw(88);
@@ -161,7 +164,14 @@
     width: 100vw;
     text-align: center;
   }
-
+  .c-content{
+    position: fixed;
+    top: px2vw(88);
+    width: 100%;
+    bottom: 0;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
   .header_bo {
     position: fixed;
     top:0;
@@ -175,7 +185,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: #f4f4f4;
+
     z-index: 2;
   }
 
@@ -256,8 +266,21 @@
     font-size: 3.7333333vw;
     color: #111;
   }
+  .state{
+    margin-top: px2vw(10);
+    width: px2vw(70);
+    display: inline-block;
+    height: px2vw(40);
+    line-height: px2vw(40);
+    background-color: #ddd;
+    color: #fff;
+    text-align: center;
+    font-size: px2vw(24);
+  }
   .goods_color1{
-    margin-top: px2vw(60);
+    position: absolute;
+    bottom:px2vw(60);
+    left: 0;
     font-size: 3.3333333vw;
   }
   .money{
@@ -273,14 +296,21 @@
     color: #b6b6b6;
   }
   .collect_pic{
-    width: px2vw(224);
-    /*height: px2vw(137);*/
+    width: 100vw;
+    height: 100%;
     position: fixed;
-    top:px2vw(512);
-    left: px2vw(306);
+    z-index: 999;
+    background-color: #f4f4f4;
   }
   .collect_pic>img{
-    width: 100%;
+    width: px2vw(220);
+    height: px2vw(204);
+    position: absolute;
+    margin: 0 auto;
+    top: px2vw(400);
+
+    right: 0;
+    left: 0;
   }
 </style>
 

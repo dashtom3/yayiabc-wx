@@ -31,7 +31,7 @@
           ]">
             <div class="fl item-img">
               <div class="check-wrap needclick fl">
-                <el-checkbox v-model="good.checked" v-if="good.state === 1" class="if-check needclick"></el-checkbox>
+                <el-checkbox v-model="good.checked" v-if="good.state === 1" class="if-check needclick" readonly="readonly"></el-checkbox>
                 <span class="invalid" v-else>失效</span>
               </div>
               <div class="img-wrap fl" @click="goProductDetail(good)">
@@ -319,7 +319,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
   @import "../../../common/sass/factory";
-  .scroll-wrapper { 
+  .scroll-wrapper {
     position: fixed;
     left: 0;
     width: 100%;
@@ -327,7 +327,7 @@
     bottom: px2vw(208);
     z-index: 10;
     overflow: scroll;
-    -webkit-overflow-scrolling: touch;    
+    -webkit-overflow-scrolling: touch;
   }
   .logWithCode {
     width: px2vw(260);
@@ -407,14 +407,14 @@
       .invalid{
         position: absolute;
         border-radius: px2vw(6);
-        width: px2vw(64); 
+        width: px2vw(64);
         height: px2vw(30);
         line-height: px2vw(30);
         text-align: center;
         top: 50%;
         transform: translateY(-50%);
         background: rgb(214, 214, 214);
-        font-size: px2vw(24); 
+        font-size: px2vw(24);
         color: #fff;
       }
     }

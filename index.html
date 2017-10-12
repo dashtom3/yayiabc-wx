@@ -9,6 +9,13 @@
   <meta content="telephone=no,email=no" name="format-detection">
   <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
   <script src="static/js/qrcode.js"></script>
+  <script src="src/components/Wap/global/fastclick.js">
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }
+  </script>
   <link rel="stylesheet" type="text/css" href="./static/muse_icon/muse.css">
   <title>牙医abc</title>
 </head>
@@ -17,9 +24,9 @@
 <!-- built files will be auto injected -->
 <script src="./static/js/mui.js"></script>
 <script>
-  mui.init({  
-      swipeBack: false //停用右滑关闭功能  
-  });  
+  mui.init({
+      swipeBack: false //停用右滑关闭功能
+  });
   mui.plusReady(function() {
   });
 </script>
