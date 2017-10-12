@@ -214,6 +214,10 @@
               }
             });
           }else {
+            if(tokenMethods.getWapUser().certification.state != 2){
+              Toast('资质审核中')
+              return
+            }
             for (let i in that.sendDataList) {
               that.sendDataList[i].totalMoney = that.sendDataList[i].price * that.sendDataList[i].num;
               that.sendDataList[i].itemName = that.sendDataList[i].name;
@@ -340,7 +344,7 @@
     bottom: px2vw(108);
     z-index: 10;
     overflow: scroll;
-    -webkit-overflow-scrolling: touch; 
+    -webkit-overflow-scrolling: touch;
   }
 
   .logWithCode {
@@ -425,14 +429,14 @@
       .invalid{
         position: absolute;
         border-radius: px2vw(6);
-        width: px2vw(64); 
+        width: px2vw(64);
         height: px2vw(30);
         line-height: px2vw(30);
         text-align: center;
         top: 50%;
         transform: translateY(-50%);
         background: rgb(214, 214, 214);
-        font-size: px2vw(24); 
+        font-size: px2vw(24);
         color: #fff;
       }
     }
