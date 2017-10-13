@@ -241,7 +241,7 @@
             }
             window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
             // console.log(wxUrl)
-            window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            window.location.href =encodeURIComponent("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
           }
         }
       },
