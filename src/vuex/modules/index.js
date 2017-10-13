@@ -771,6 +771,16 @@ const actions = {
       });
     });
   },
+  // 支付宝订单支付
+  [types.ZFB_ORDER_PAY](context, params) {
+    return new Promise((resolve, reject) => {
+      api.zfbOrderPay(params).then((data) => {
+        resolve(data);
+      }).catch((err) => {
+        resolve(data);
+      });
+    });
+  },
   // 充值乾币优惠码
   [types.QB_DISCOUNT](context, params) {
     return new Promise((resolve, reject) => {

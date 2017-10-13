@@ -38,11 +38,11 @@
       <div class="payWay_font">
         选择支付方式
       </div>
-      <div @click="zfb_pay" class="payZFB" v-show="zhifubao">
+      <!-- <div @click="zfb_pay" class="payZFB" v-show="zhifubao">
         <img class="zfb_img" src="../../../images/mine/zhifubao.png" alt="">
         <span :class="{ active: isActive1 }">支付宝</span>
         <img v-show="payShow" class="yesBlue" src="../../../images/mine/yesBlue.png" alt="">
-      </div>
+      </div> -->
       <div @click="wx_pay" class="payWX">
         <img class="wx_img" src="../../../images/mine/weixin.png" alt="">
         <span :class="{ active: isActive2 }">微信支付</span>
@@ -78,11 +78,11 @@
       // window.sessionStorage.removeItem('suborderData')
       that.orderId = order.OrderId
       that.payMoney = order.actualPay
-      if (that.isWeiXin()) {
-        that.zhifubao = false
-      } else {
-        that.zhifubao = true
-      }
+      // if (that.isWeiXin()) {
+      //   that.zhifubao = false
+      // } else {
+      //   that.zhifubao = true
+      // }
       if (code) {
         that.wxOpenPay()
       }

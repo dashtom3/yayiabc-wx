@@ -328,7 +328,10 @@ export function wxCoinPay(params) {
 export function wxOrderPay(params) {
   return postWithToken('/wxRoom/unifiedOrderReturnUrl', params);
 }
-
+// 支付宝订单支付
+export function zfbOrderPay(params) {
+  return postWithToken('/phonePay/PhonePayParames', params);
+}
 // 微信H5支付订单
 export function wxH5Pay(params) {
   return post('/weixinPhone/phoneBuy', params);

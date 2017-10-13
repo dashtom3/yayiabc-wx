@@ -48,6 +48,7 @@ export const WX_LOGIN_SEARCH = 'WX_LOGIN_SEARCH'                          // 微
 export const WX_H5_PAY = 'WX_H5_PAY'                                      // 微信H5支付订单
 export const WX_COIN_PAY = 'WX_COIN_PAY'                                  // 微信公众号内H5支付
 export const WX_ORDER_PAY = 'WX_ORDER_PAY'                                // 微信公众号内订单支付
+export const ZFB_ORDER_PAY = 'ZFB_ORDER_PAY'                              // 支付宝支付
 
 // mutstions types
 export const TOGGLE_INDEX_CAROUSEL = 'TOGGLE_INDEX_CAROUSEL'              // 获取首页轮播图
