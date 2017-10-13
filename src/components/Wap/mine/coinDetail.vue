@@ -137,6 +137,7 @@
     created: function() {
       var that = this
       var code = this.queryToArgs()['code']
+      console.log(code)
       if (code) {
         var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
         // var money = this.queryToArgs()['state']
@@ -155,14 +156,15 @@
           if (res.data.callStatus == 'SUCCEED') {
             WeixinJSBridge.invoke(
               'getBrandWCPayRequest', {
-                "appId": res.data.data.appid,     //公众号名称，由商户传入     
-                "timeStamp": String(res.data.data.timestamp),     //时间戳，自1970年以来的秒数     
-                "nonceStr": res.data.data.noncestr,     //随机串     
-                "package":'prepay_id=' + res.data.data.prepayid,   
-                "signType": "MD5",         //微信签名方式：     
-                "paySign": res.data.data.sign,   //微信签名 
+                "appId": res.data.data.appid,     //公众号名称，由商户传入
+                "timeStamp": String(res.data.data.timestamp),     //时间戳，自1970年以来的秒数
+                "nonceStr": res.data.data.noncestr,     //随机串
+                "package":'prepay_id=' + res.data.data.prepayid,
+                "signType": "MD5",         //微信签名方式：
+                "paySign": res.data.data.sign,   //微信签名
               },
-              function(res){     
+              function(res){
+
                 if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                   that.kk = 1
                   var timer = setInterval(function(){
@@ -184,14 +186,14 @@
                   },2000)
                   //Toast({message: '充值成功', duration: 1500})
                 }
-                // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 
+                // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
               }
             )
             if (typeof WeixinJSBridge == "undefined") {
               if( document.addEventListener ) {
                 document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
               } else if (document.attachEvent) {
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
                 document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
               }
             }else{
@@ -219,7 +221,9 @@
         //判断总价钱是否为0
         if(that.amount == 0) {
           Toast({message: '请输入正确的充值的数量', duration: 800})
+          return;
         } else {
+
           if(that.payShow == true) {
             // 支付宝支付手机网站端
             // window.location.href = 'http://47.93.48.111:6181/api/pay/recharge' + '?token=' + tokenMethods.getWapToken() + '&qbNum=' + this.moneyCoins + '&qbType=' + this.qbType + '&computerOrPhone=phone'
@@ -234,110 +238,126 @@
             //   window.location.href = res.request.responseURL
             // })
           } else {
-//   function pay() { var url="<%=basePath%>wechat/pay?money=${sumPrice}"; //注意此处的basePath是没有端口号的域名地址。如果包含:80,在提交给微信时有可能会提示 “redirect_uri参数错误” 。 //money为订单需要支付的金额 //state中存放的为商品订单号 
-//   var weixinUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri="+encodeURI(url)+"&response_type=code&scope=snsapi_userinfo&state=${orderId}#wechat_redirect"; 
-//   window.location.href=encodeURI(weixinUrl); 
+//   function pay() { var url="<%=basePath%>wechat/pay?money=${sumPrice}"; //注意此处的basePath是没有端口号的域名地址。如果包含:80,在提交给微信时有可能会提示 “redirect_uri参数错误” 。 //money为订单需要支付的金额 //state中存放的为商品订单号
+//   var weixinUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri="+encodeURI(url)+"&response_type=code&scope=snsapi_userinfo&state=${orderId}#wechat_redirect";
+//   window.location.href=encodeURI(weixinUrl);
 // }
-            var wxUrl = 'http://wap.yayiabc.com/#/coinDetail'
+//            var wxUrl = 'http://wap.yayiabc.com/#/coinDetail'
+            alert(code);
             var data = {
               money: that.moneyCoins,
               amount: that.amount
             }
-            window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
-            // console.log(wxUrl)
-            window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-            // window.location.href = encodeURI(weixinUrl); 
+//            window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
+//            // console.log(wxUrl)
+//            window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+//             window.location.href = encodeURI(weixinUrl);
             // 微信公众号内微信充值乾币
-            // Indicator.open()
-            // var obj = {
-            //   token: tokenMethods.getWapToken(),
-            //   qbNum: this.moneyCoins,
-            //   qbType: this.qbType,
-            // }
-            // that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
-            //   console.log(res,'huhu')
-            //   if (res.data.callStatus == 'SUCCEED') {
-            //     WeixinJSBridge.invoke(
-            //       'getBrandWCPayRequest', {
-            //         "appId":"wx2421b1c4370ec43b",     //公众号名称，由商户传入     
-            //         "timeStamp":"1395712654",         //时间戳，自1970年以来的秒数     
-            //         "nonceStr":"e61463f8efa94090b1f366cccfbbb444", //随机串     
-            //         "package":"prepay_id=u802345jgfjsdfgsdg888",     
-            //         "signType":"MD5",         //微信签名方式：     
-            //         "paySign":"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名 
-            //       },
-            //       function(res){     
-            //         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-            //           console.log('支付成功')
-            //         }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-            //       }
-            //     )
-            //     if (typeof WeixinJSBridge == "undefined") {
-            //        if( document.addEventListener ) {
-            //            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-            //        }else if (document.attachEvent) {
-            //            document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-            //            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-            //        }
-            //     }else{
-            //        onBridgeReady();
-            //     }
-            //     // clearInterval(timer)
-            //     // plus.nativeUI.closeWaiting()
-            //     // that.$router.push({ name: 'payResult', params: {moneyCoins: that.moneyCoins, amount: that.amount}})
-            //   } else {
-            //     plus.nativeUI.closeWaiting()
-            //     console.log("充值失败")
-            //   }
-            // })
-            // Toast({message: res.data.msg, duration: 1500})
+//             Indicator.open()
+             var obj = {
+               token: tokenMethods.getWapToken(),
+               qbNum: this.moneyCoins,
+               qbType: this.qbType,
+             }
+            that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
+               alert('请求成功了')
+               alert(JSON.stringify(res))
+               if (res.data.callStatus == 'SUCCEED') {
+                 WeixinJSBridge.invoke(
+//                   'getBrandWCPayRequest', {
+//                     "appId":"wx2421b1c4370ec43b",     //公众号名称，由商户传入
+//                     "timeStamp":"1395712654",         //时间戳，自1970年以来的秒数
+//                     "nonceStr":"e61463f8efa94090b1f366cccfbbb444", //随机串
+//                     "package":"prepay_id=u802345jgfjsdfgsdg888",
+//                     "signType":"MD5",         //微信签名方式：
+//                     "paySign":"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+//                   },
+                   'getBrandWCPayRequest',{
+                     "appId":res.data.data.appid,     //公众号名称，由商户传入
+                     "timeStamp":res.data.data.timestamp,         //时间戳，自1970年以来的秒数
+                     "nonceStr":res.data.data.noncestr, //随机串
+                     "package":"prepay_id=" + res.data.data.prepayid,
+                     "signType":"MD5",         //微信签名方式：
+                     "paySign":res.data.data.sign //微信签名
+                   },
+                   function(res){
+                     alert(JSON.stringify(res))
+                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                       console.log('支付成功')
+                       alert(JSON.stringify(res))
 
-            // mui.post( this.$store.state.index.baseUrl + "/appPay/unifiedOrderCharge", {
-            //   token: tokenMethods.getWapToken(),
-            //   money: this.moneyCoins,
-            //   qbType: this.qbType,
-            // }, function(data) {
-            //   var obj = {
-            //     appid: data.data.appid,
-            //     noncestr: data.data.noncestr,
-            //     package: 'Sign=WXPay',
-            //     partnerid: data.data.partnerid,
-            //     prepayid: data.data.prepayid,
-            //     timestamp: data.data.timestamp,
-            //     sign: data.data.sign,
-            //   }
-            //   var dataPay = JSON.stringify(obj)
-            //   plus.nativeUI.closeWaiting();
-            //   if (data.callStatus == 'SUCCEED') {
-            //       plus.nativeUI.alert(JSON.stringify(data),'huihui')
-            //       plus.payment.request(wxChannel, dataPay, function() {
-            //         plus.nativeUI.showWaiting()
-            //         that.kk = 1
-            //         var timer = setInterval(function(){
-            //           if (that.kk == 600) {
-            //             clearInterval(timer)
-            //             return false
-            //           }
-            //           that.$store.dispatch('WX_COIN_SEARCH').then((res) => {
-            //             plus.nativeUI.alert(JSON.stringify(res),'lihui')
-            //             if (res.num == 2) {
-            //               clearInterval(timer)
-            //               plus.nativeUI.closeWaiting()
-            //               that.$router.push({ name: 'payResult', params: {moneyCoins: that.moneyCoins, amount: that.amount}})
-            //               // plus.nativeUI.alert("充值成功")
-            //             } else {
-            //               plus.nativeUI.closeWaiting()
-            //               console.log("充值失败")
-            //             }
-            //           })
-            //         },2000)
-            //       }, function(e) {
-            //           console.log(JSON.stringify(e));
-            //           // alert(JSON.stringify(e));
-            //           plus.nativeUI.alert("充值失败");
-            //       });
-            //   } 
-            // })
+                     }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                     else(
+                       alert(JSON.stringify(res))
+                     )
+                   }
+                 )
+                 if (typeof WeixinJSBridge == "undefined") {
+                    if( document.addEventListener ) {
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    }else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                 }else{
+                    onBridgeReady();
+                 }
+                 // clearInterval(timer)
+                 // plus.nativeUI.closeWaiting()
+                 // that.$router.push({ name: 'payResult', params: {moneyCoins: that.moneyCoins, amount: that.amount}})
+               } else {
+                 plus.nativeUI.closeWaiting()
+                 console.log("充值失败")
+               }
+             })
+             Toast({message: res.data.msg, duration: 1500})
+
+             mui.post( this.$store.state.index.baseUrl + "/appPay/unifiedOrderCharge", {
+               token: tokenMethods.getWapToken(),
+               money: this.moneyCoins,
+               qbType: this.qbType,
+             }, function(data) {
+               var obj = {
+                 appid: data.data.appid,
+                 noncestr: data.data.noncestr,
+                 package: 'Sign=WXPay',
+                 partnerid: data.data.partnerid,
+                 prepayid: data.data.prepayid,
+                 timestamp: data.data.timestamp,
+                 sign: data.data.sign,
+               }
+               var dataPay = JSON.stringify(obj)
+               plus.nativeUI.closeWaiting();
+               if (data.callStatus == 'SUCCEED') {
+                   plus.nativeUI.alert(JSON.stringify(data),'huihui')
+                   plus.payment.request(wxChannel, dataPay, function() {
+                     plus.nativeUI.showWaiting()
+                     that.kk = 1
+                     var timer = setInterval(function(){
+                       if (that.kk == 600) {
+                         clearInterval(timer)
+                         return false
+                       }
+                       that.$store.dispatch('WX_COIN_SEARCH').then((res) => {
+                         plus.nativeUI.alert(JSON.stringify(res),'lihui')
+                         if (res.num == 2) {
+                           clearInterval(timer)
+                           plus.nativeUI.closeWaiting()
+                           that.$router.push({ name: 'payResult', params: {moneyCoins: that.moneyCoins, amount: that.amount}})
+                           // plus.nativeUI.alert("充值成功")
+                         } else {
+                           plus.nativeUI.closeWaiting()
+                           console.log("充值失败")
+                         }
+                       })
+                     },2000)
+                   }, function(e) {
+                       console.log(JSON.stringify(e));
+                       // alert(JSON.stringify(e));
+                       plus.nativeUI.alert("充值失败");
+                   });
+               }
+             })
           }
         }
       },
