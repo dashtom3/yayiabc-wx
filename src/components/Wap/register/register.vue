@@ -481,7 +481,9 @@
 </style>
 <style lang="scss" rel="stylesheet/scss">
   @import "../../../common/sass/factory";
-
+  .mint-cell-text{
+    font-size: px2vw(28) !important;
+  }
   .formWrap {
     position: fixed;
     top: px2vw(88);
@@ -519,7 +521,7 @@
       border: none;
       padding: 0;
       margin: 0;
-      font-size: px2vw(26);
+      font-size: px2vw(28);
     }
     .avatar-uploader {
       width: 100%;
