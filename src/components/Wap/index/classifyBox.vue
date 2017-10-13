@@ -97,6 +97,7 @@ export default {
 @import "../../../common/sass/factory";
   .classifyBox{
     margin: px2vw(30) px2vw(20);
+    padding-bottom: px2vw(80);
   }
   .Box_list1, .Box_list2{
     overflow: hidden;
