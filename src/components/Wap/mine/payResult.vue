@@ -51,6 +51,8 @@
     },
     created: function() {
       var that = this
+      var wxState = 2
+      window.sessionStorage.setItem('wxState', JSON.stringify(wxState))
       if (that.$route.params.moneyCoins) {
         that.moneyCoins = that.$route.params.moneyCoins
         that.amount = that.$route.params.amount

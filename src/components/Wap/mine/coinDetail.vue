@@ -29,11 +29,12 @@
     <!--充值个数开始-->
     <div class="payCoins">
       <span>充值的乾币数</span>
-      <input  v-model="moneyCoins" type="tel" placeholder="请输入本次充值乾币个数">
+      <input  v-model="moneyCoins" type="tel" :placeholder="placeH">
     </div>
     <div class="payCoins">
       <span>实际支付金额</span>
-      <span class="payCoins_color">{{allprice}}</span>
+      <span v-if="coin" class="payCoins_color">{{allprice}}</span>
+      <span v-else class="payCoins_color">{{coinallprice}}</span>
     </div>
     <!--充值个数结束-->
     <!--支付方式开始-->
@@ -73,6 +74,9 @@
         amount : '',
         qbType : 'c_qb',
         kk: null,
+        placeH: '请输入本次充值乾币个数',
+        coin: true,
+        coinallprice: '',
       }
     },
     watch:{
@@ -137,7 +141,8 @@
     created: function() {
       var that = this
       var code = this.queryToArgs()['code']
-      if (code) {
+      var wx_state = JSON.parse(window.sessionStorage.getItem('wxState'))
+      if (code && wx_state == 1) {
         var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
         Indicator.open()
         var obj = {
@@ -146,6 +151,9 @@
           code: code,
           money: parseInt(wxData.money),
         }
+        that.placeH = wxData.money
+        that.coin = false
+        that.coinallprice = wxData.amount
         // alert(JSON.stringify(obj),'2323')
         that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
           // alert(JSON.stringify(res.data),'huhu')
@@ -199,6 +207,8 @@
           }
         })
       } else {
+        that.placeH = '请输入本次充值乾币个数'
+        that.coin = true
         window.sessionStorage.removeItem('wxCoin')
       }
     },
@@ -241,6 +251,8 @@
             }
             // +encodeURI(wxUrl)+
             window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
+            var wxState = 1
+            window.sessionStorage.setItem('wxState', JSON.stringify(wxState))
             window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3A%2F%2Fwap.yayiabc.com%2F%23%2FcoinDetail&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
           }
         }
