@@ -755,7 +755,6 @@ const actions = {
   [types.WX_COIN_PAY](context, params) {
     return new Promise((resolve, reject) => {
       api.wxCoinPay(params).then((data) => {
-        alert('action请求成功')
         console.log(JSON.stringify(data))
         resolve(data);
       }).catch((err) => {

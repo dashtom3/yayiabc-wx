@@ -137,7 +137,6 @@
     created: function() {
       var that = this
       var code = this.queryToArgs()['code']
-      console.log(code)
       if (code) {
         var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
         Indicator.open()
@@ -147,10 +146,9 @@
           code: code,
           money: parseInt(wxData.money),
         }
-        alert(JSON.stringify(obj),'2323')
+        // alert(JSON.stringify(obj),'2323')
         that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
-          alert(JSON.stringify(res.data),'huhu')
-          Indicator.open()
+          // alert(JSON.stringify(res.data),'huhu')
           if (res.data.callStatus == 'SUCCEED') {
             WeixinJSBridge.invoke(
               'getBrandWCPayRequest', {
@@ -161,7 +159,7 @@
                 "signType": "MD5",         //微信签名方式：
                 "paySign": res.data.data.sign,   //微信签名
               },
-              function(res){
+              function(res) {
                 if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                   that.kk = 1
                   var timer = setInterval(function(){
@@ -200,6 +198,8 @@
             console.log("充值失败")
           }
         })
+      } else {
+        window.sessionStorage.removeItem('wxCoin')
       }
     },
     methods: {
@@ -239,9 +239,9 @@
               money: that.moneyCoins,
               amount: that.amount
             }
+            // +encodeURI(wxUrl)+
             window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
-            // console.log(wxUrl)
-            window.location.href =encodeURIComponent("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3A%2F%2Fwap.yayiabc.com%2F%23%2FcoinDetail&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
           }
         }
       },

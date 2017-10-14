@@ -136,10 +136,9 @@
             orderId: wxDataPay.orderId,
             code: code,
           }
-          alert(JSON.stringify(obj),'2323')
+          // alert(JSON.stringify(obj),'2323')
           that.$store.dispatch('WX_ORDER_PAY',obj).then((res) => {
-            alert(res.data,'huhu')
-            Indicator.open()
+            // alert(res.data,'huhu')
             if (res.data.callStatus == 'SUCCEED') {
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
@@ -209,7 +208,7 @@
               payMoney: that.payMoney,
             }
             window.sessionStorage.setItem('wxPay', JSON.stringify(payData))
-            window.location.href =encodeURIComponent("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+            window.location.href ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3A%2F%2Fwap.yayiabc.com%2F%23%2Fpay&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
         }
       }
     }
