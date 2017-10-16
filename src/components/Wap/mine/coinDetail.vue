@@ -144,6 +144,7 @@
       var wx_state = JSON.parse(window.sessionStorage.getItem('wxState'))
       if (code && wx_state == 1) {
         var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
+        that.moneyCoins = wxData.moneyCoins;
         Indicator.open()
         var obj = {
           token: tokenMethods.getWapToken(),
@@ -151,7 +152,7 @@
           code: code,
           money: parseInt(wxData.money),
         }
-        that.placeH = wxData.money
+//        that.placeH = wxData.money
         that.coin = false
         that.coinallprice = wxData.amount
         // alert(JSON.stringify(obj),'2323')
@@ -188,6 +189,9 @@
                     })
                   },2000)
                   //Toast({message: '充值成功', duration: 1500})
+                } else {
+                  //取消支付？
+                  alert("!!")
                 }
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
               }
@@ -207,7 +211,12 @@
           }
         })
       } else {
-        that.placeH = '请输入本次充值乾币个数'
+        var WxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
+        if(WxData){
+          that.moneyCoins = WxData.moneyCoins
+        }else {
+          that.moneyCoins = ''
+        }
         that.coin = true
         window.sessionStorage.removeItem('wxCoin')
       }
