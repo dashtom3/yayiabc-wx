@@ -13,6 +13,7 @@ export default {
     created: function() {
         var that = this
         var code = this.queryToArgs()['code']
+        console.log('this is kong')
         if (code) {
             Indicator.open()
             var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
@@ -90,9 +91,4 @@ export default {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss" rel="stylesheet/scss">
-
-</style>
 

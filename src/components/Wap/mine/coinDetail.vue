@@ -190,7 +190,7 @@
             }
             // +encodeURI(wxUrl)+
             window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
-            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3A%2F%2Fwap.yayiabc.com%2F%23%2Fkong&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3a%2f%2fwap.yayiabc.com%2f%23%2fkong&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
           }
         }
       },
