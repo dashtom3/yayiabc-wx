@@ -4,6 +4,8 @@
 </template>
 
 <script>
+  import {tokenMethods} from '../../../vuex/util'
+  import {Toast,Indicator} from 'mint-ui'
 export default {
     name: 'kong',
     data() {
@@ -13,21 +15,19 @@ export default {
     created: function() {
         var that = this
         var code = this.queryToArgs()['code']
-        console.log('this is kong')
         if (code) {
-            Indicator.open()
             var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
             that.moneyCoins = wxData.moneyCoins;
             var obj = {
                 token: tokenMethods.getWapToken(),
-                qbType: this.qbType,
+                qbType: wxData.qbType,
                 code: code,
                 money: parseInt(wxData.money),
             }
-            // alert(JSON.stringify(obj),'2323')
+            alert(JSON.stringify(obj))
             that.$store.dispatch('WX_COIN_PAY', obj).then((res) => {
                 Indicator.close()
-                // alert(JSON.stringify(res.data),'huhu')
+                alert(JSON.stringify(res.data))
                 if (res.data.callStatus == 'SUCCEED') {
                     WeixinJSBridge.invoke(
                         'getBrandWCPayRequest', {
@@ -62,6 +62,8 @@ export default {
                                 //Toast({message: '充值成功', duration: 1500})
                             } else {
                                 //取消支付？
+                                window.sessionStorage.removeItem('wxCoin')
+                                that.$router.push({ name: 'coinDetail' })
                                 alert("!!")
                             }
                             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
