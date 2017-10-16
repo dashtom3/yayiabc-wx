@@ -33,6 +33,7 @@ import feedback from '@/components/Wap/mine/feedback'
 
 
 const coinDetail = resolve => require(['@/components/Wap/mine/coinDetail'], resolve)
+const kong = resolve => require(['@/components/Wap/mine/kong'], resolve)
 const payResult = resolve => require(['@/components/Wap/mine/payResult'], resolve)
 const coinCash = resolve => require(['@/components/Wap/mine/coinCash'], resolve)
 const coinCashDetail = resolve => require(['@/components/Wap/mine/coinCashDetail'], resolve)
@@ -277,6 +278,11 @@ let router = new Router({
       name: 'paySucced',
       path: '/paySucced',
       component: paySucced
+    },
+    {
+      name: 'kong',
+      path: '/kong',
+      component: kong
     },
     {
       name: 'salesLogin',

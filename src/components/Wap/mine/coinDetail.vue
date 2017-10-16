@@ -140,85 +140,15 @@
     },
     created: function() {
       var that = this
-      var code = this.queryToArgs()['code']
-      var wx_state = JSON.parse(window.sessionStorage.getItem('wxState'))
-      if (code && wx_state == 1) {
-        var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
-        that.moneyCoins = wxData.moneyCoins;
-        Indicator.open()
-        var obj = {
-          token: tokenMethods.getWapToken(),
-          qbType: this.qbType,
-          code: code,
-          money: parseInt(wxData.money),
+      if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+          document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
         }
-//        that.placeH = wxData.money
-        that.coin = false
-        that.coinallprice = wxData.amount
-        // alert(JSON.stringify(obj),'2323')
-        that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
-          // alert(JSON.stringify(res.data),'huhu')
-          if (res.data.callStatus == 'SUCCEED') {
-            WeixinJSBridge.invoke(
-              'getBrandWCPayRequest', {
-                "appId": res.data.data.appid,     //公众号名称，由商户传入
-                "timeStamp": String(res.data.data.timestamp),     //时间戳，自1970年以来的秒数
-                "nonceStr": res.data.data.noncestr,     //随机串
-                "package":'prepay_id=' + res.data.data.prepayid,
-                "signType": "MD5",         //微信签名方式：
-                "paySign": res.data.data.sign,   //微信签名
-              },
-              function(res) {
-                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                  that.kk = 1
-                  var timer = setInterval(function(){
-                    if (that.kk == 600) {
-                      clearInterval(timer)
-                      return false
-                    }
-                    that.$store.dispatch('WX_COIN_SEARCH').then((res) => {
-                      if (res.num == 2) {
-                        clearInterval(timer)
-                        Indicator.close()
-                        that.$router.push({ name: 'payResult', params: {moneyCoins: wxData.money, amount: wxData.amount}})
-                        window.sessionStorage.removeItem('wxCoin')
-                      } else {
-                        Indicator.close()
-                        console.log("充值失败")
-                      }
-                    })
-                  },2000)
-                  //Toast({message: '充值成功', duration: 1500})
-                } else {
-                  //取消支付？
-                  alert("!!")
-                }
-                // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-              }
-            )
-            if (typeof WeixinJSBridge == "undefined") {
-              if( document.addEventListener ) {
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-              } else if (document.attachEvent) {
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-              }
-            }else{
-              onBridgeReady();
-            }
-          } else {
-            console.log("充值失败")
-          }
-        })
       } else {
-        var WxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
-        if(WxData){
-          that.moneyCoins = WxData.moneyCoins
-        }else {
-          that.moneyCoins = ''
-        }
-        that.coin = true
-        window.sessionStorage.removeItem('wxCoin')
+        onBridgeReady();
       }
     },
     methods: {
@@ -260,9 +190,7 @@
             }
             // +encodeURI(wxUrl)+
             window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
-            var wxState = 1
-            window.sessionStorage.setItem('wxState', JSON.stringify(wxState))
-            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3A%2F%2Fwap.yayiabc.com%2F%23%2FcoinDetail&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3A%2F%2Fwap.yayiabc.com%2F%23%2Fkong&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
           }
         }
       },
