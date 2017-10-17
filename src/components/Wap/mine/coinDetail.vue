@@ -183,7 +183,7 @@
             //   window.location.href = res.request.responseURL
             // })
           } else {
-            var wxUrl = 'http://wap.yayiabc.com/#/pay'
+            var wxUrl = 'http://wap.yayiabc.com/#/kong'
             var data = {
               money: that.moneyCoins,
               amount: that.amount,
