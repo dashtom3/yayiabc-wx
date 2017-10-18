@@ -96,7 +96,7 @@ export default {
 <style scoped lang="scss" rel="stylesheet/scss">
 @import "../../../common/sass/factory";
   .classifyBox{
-    margin: px2vw(30) px2vw(20);
+    margin: px2vw(30) px2vw(20) 0;
     padding-bottom: px2vw(80);
   }
   .Box_list1, .Box_list2{
