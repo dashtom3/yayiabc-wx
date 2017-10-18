@@ -68,7 +68,8 @@
         isActive1: true,
         isActive2: false,
         kk: null,
-        zhifubao: true
+        zhifubao: true,
+        moduleShow:false
       }
     },
     created() {
@@ -84,8 +85,15 @@
       //   that.zhifubao = true
       // }
       var wx_state = JSON.parse(window.sessionStorage.getItem('wxState'))
-      if (code && wx_state == 1) {
-        that.wxOpenPay()
+      if(wx_state ==1) {
+        Indicator.open({
+          text: '支付数据处理中...',
+          spinnerType: 'fading-circle'
+        });
+        that.moduleShow = true;
+        if (code && wx_state == 1) {
+          that.wxOpenPay()
+        }
       }
     },
     methods: {
@@ -96,6 +104,8 @@
           showCancelButton: true
         }).then(action => {
           this.$router.push({name: 'orderSubpage', params: {order_state: 0}})
+          that.moduleShow = false;
+          window.sessionStorage.removeItem('wxState')
           // this.$router.go(-1)
         }).catch(err => {
         })
@@ -132,7 +142,6 @@
         var that = this
         var code = this.queryToArgs()['code']
         var wxDataPay = JSON.parse(window.sessionStorage.getItem('wxPay'))
-        Indicator.open()
           var obj = {
             orderId: wxDataPay.orderId,
             code: code,
@@ -163,6 +172,8 @@
                       var timer = setInterval(function () {
                         if (that.kk == 600) {
                           clearInterval(timer)
+                          that.moduleShow = false;
+                          Indicator.close()
                           return false
                         }
                         var obj = {
@@ -172,12 +183,16 @@
                           // plus.nativeUI.alert(JSON.stringify(res),'lihui')
                           if (res.num == 2) {
                             clearInterval(timer)
+                            that.moduleShow = false;
                             Indicator.close()
                             that.$router.push({name: 'paySucced', params: {orderId: wxDataPay.orderId, payMoney: wxDataPay.payMoney}})
                             window.sessionStorage.removeItem('wxCoin')
+                            window.sessionStorage.removeItem('wxState')
                             // plus.nativeUI.alert("支付成功")
                           } else {
+                            that.moduleShow = false;
                             Indicator.close()
+                            window.sessionStorage.removeItem('wxState')
                             console.log("支付失败")
                           }
                         })
@@ -190,12 +205,17 @@
 //                    }
                   },
                   cancel: function (res) {
+                    that.moduleShow = false;
+                    window.sessionStorage.removeItem('wxState')
                     that.$router.go(-1)
+                    Indicator.close()
                   }
                 });
               });
               wx.error(function(res){
-
+                that.moduleShow = false;
+                Indicator.close()
+                window.sessionStorage.removeItem('wxState')
                 return false;
               });
 //              WeixinJSBridge.invoke(
@@ -248,7 +268,10 @@
 //                onBridgeReady();
 //              }
             } else {
+              that.moduleShow = false;
               console.log("支付失败")
+              Indicator.close()
+              window.sessionStorage.removeItem('wxState')
             }
           })
       },

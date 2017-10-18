@@ -58,6 +58,7 @@
     <mu-raised-button label="立即支付" class="pay" @click="pay"/>
     <!--立即支付结束-->
     <!--末尾-->
+    <div class="moduleM" v-if="moduleShow"></div>
   </div>
 </template>
 
@@ -77,6 +78,7 @@
         placeH: '请输入本次充值乾币个数',
         coin: true,
         coinallprice: '',
+        moduleShow:false
       }
     },
     watch:{
@@ -143,26 +145,32 @@
       var code = this.queryToArgs()['code']
 //      alert(code);
       var wx_state = JSON.parse(window.sessionStorage.getItem('wxState'))
-      if (code && wx_state == 1) {
-        var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
-        Indicator.open()
-        var obj = {
-          token: tokenMethods.getWapToken(),
-          qbType: wxData.qbType,
-          code: code,
-          money: parseInt(wxData.money),
-        }
-        that.placeH = wxData.money
-        that.coin = false
-        that.qbType = wxData.qbType;
-        that.coinallprice = wxData.amount
-        that.moneyCoins = wxData.money
+      if(wx_state ==1){
+        Indicator.open({
+          text: '支付数据处理中...',
+          spinnerType: 'fading-circle'
+        });
+        that.moduleShow = true;
+        if (code && wx_state == 1) {
+          var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
+//        Indicator.open()
+          var obj = {
+            token: tokenMethods.getWapToken(),
+            qbType: wxData.qbType,
+            code: code,
+            money: parseInt(wxData.money),
+          }
+          that.placeH = wxData.money
+          that.coin = false
+          that.qbType = wxData.qbType;
+          that.coinallprice = wxData.amount
+          that.moneyCoins = wxData.money
 //        alert(JSON.stringify(obj))
 
-        that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
+          that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
 //          alert(JSON.stringify(res.data))
 //          window.location.reload();
-          if (res.data.callStatus == 'SUCCEED') {
+            if (res.data.callStatus == 'SUCCEED') {
 //            alert('准备调用微信支付')
 //            WeixinJSBridge.invoke(
 //              'getBrandWCPayRequest', {
@@ -213,24 +221,23 @@
 //            }else{
 //              onBridgeReady();
 //            }
-
-            wx.config({
-              debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-              appId: res.data.data.appid, // 必填，公众号的唯一标识
-              timestamp: String(res.data.data.timestamp), // 必填，生成签名的时间戳
-              nonceStr: res.data.data.noncestr, // 必填，生成签名的随机串
-              signature: res.data.data.partnerid,// 必填，签名，见附录1
-              jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            });
-            wx.ready(function(){
-              wx.chooseWXPay({
-                "timestamp": String(res.data.data.timestamp), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                "nonceStr": res.data.data.noncestr, // 支付签名随机串，不长于 32 位
-                "package": 'prepay_id=' + res.data.data.prepayid, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-                "signType": 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                "paySign": res.data.data.sign, // 支付签名
-                success: function (res) {
-                  // 支付成功后的回调函数
+              wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: res.data.data.appid, // 必填，公众号的唯一标识
+                timestamp: String(res.data.data.timestamp), // 必填，生成签名的时间戳
+                nonceStr: res.data.data.noncestr, // 必填，生成签名的随机串
+                signature: res.data.data.partnerid,// 必填，签名，见附录1
+                jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+              });
+              wx.ready(function(){
+                wx.chooseWXPay({
+                  "timestamp": String(res.data.data.timestamp), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                  "nonceStr": res.data.data.noncestr, // 支付签名随机串，不长于 32 位
+                  "package": 'prepay_id=' + res.data.data.prepayid, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                  "signType": 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                  "paySign": res.data.data.sign, // 支付签名
+                  success: function (res) {
+                    // 支付成功后的回调函数
 //                  alert('支付成功')
 //                  alert(JSON.stringify(res))
 //                  if(res.err_msg == "get_brand_wcpay_request:ok" ) {
@@ -238,46 +245,64 @@
                     var timer = setInterval(function(){
                       if (that.kk == 600) {
                         clearInterval(timer)
+                        that.moduleShow = false;
+                        Indicator.close()
                         return false
                       }
                       that.$store.dispatch('WX_COIN_SEARCH').then((res) => {
                         if (res.num == 2) {
                           clearInterval(timer)
-                          Indicator.close()
 //                          alert(window.location.href);
                           that.$router.push({ name: 'payResult', params: {moneyCoins: wxData.money, amount: wxData.amount}})
+                          that.moduleShow = false;
+                          Indicator.close()
+                          window.sessionStorage.removeItem('wxState')
                           window.sessionStorage.removeItem('wxCoin')
                         } else {
+                          that.moduleShow = false;
                           Indicator.close()
+                          window.sessionStorage.removeItem('wxState')
                           console.log("充值失败")
                         }
                       })
                     },2000)
 //                    Toast({message: '充值成功', duration: 1500})
 //                  }
-                  // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                    // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
 //                  else{
 //                    that.$router.go(-1)
 //                  }
-                },
-                cancel: function (res) {
-                  that.$router.go(-1)
-                }
+                  },
+                  cancel: function (res) {
+                    that.moduleShow = false;
+                    Indicator.close()
+                    that.$router.go(-1)
+                    window.sessionStorage.removeItem('wxState')
+                  }
+                });
               });
-            });
-            wx.error(function(res){
+              wx.error(function(res){
 //              alert(res.err_msg);
 //              alert('aa');
-              return false;
-            });
-          } else {
-            console.log("充值失败")
-          }
-      })
-      } else {
-        that.placeH = '请输入本次充值乾币个数'
-        that.coin = true
-        window.sessionStorage.removeItem('wxCoin')
+                that.moduleShow = false;
+                Indicator.close()
+                window.sessionStorage.removeItem('wxState')
+                return false;
+              });
+            } else {
+              that.moduleShow = false;
+              Indicator.close()
+              console.log("充值失败")
+              window.sessionStorage.removeItem('wxState')
+            }
+          })
+        } else {
+          that.placeH = '请输入本次充值乾币个数'
+          that.coin = true
+          window.sessionStorage.removeItem('wxCoin');
+          that.moduleShow = false;
+          Indicator.close()
+        }
       }
     },
     methods: {
@@ -350,6 +375,15 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
   @import "../../../common/sass/factory";
+  .moduleM{
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height:100vh;
+    z-index: 110;
+  }
   .coinDetail_box {
     font-size: 3.73333vw;
     margin-top: px2vw(-15);
