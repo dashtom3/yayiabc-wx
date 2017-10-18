@@ -333,6 +333,10 @@
           token: tokenMethods.getWapToken()
         }
         that.$store.dispatch('GET_LOGIN_OUT', obj).then((res) => {
+          if (res.callStatus === 'FAILED') {
+            tokenMethods.removeMsg()
+            this.$router.push({path: '/logIn'})
+          }
           if (res.callStatus === 'SUCCEED') {
             tokenMethods.removeMsg()
             Toast({message: '退出成功！', duration: 1500})
@@ -475,6 +479,7 @@
   .mine {
 
     font-weight: 300;
+    overflow: hidden;
   }
 
   .userName_money span {

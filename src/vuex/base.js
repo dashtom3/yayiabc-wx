@@ -135,6 +135,7 @@ export function getWithToken(url, params = {}) {
         if (res.data.errorCode === 'RE_LOGIN') {
           Indicator.close();
           tokenMethods.removeMsg()
+          resolve(res.data);
           // router.push({path: '/logIn'})
           // Toast({message: '登录过期，请重新登录！', duration: 1500})
           return false
