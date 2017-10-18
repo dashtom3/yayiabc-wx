@@ -24,9 +24,7 @@ export default {
                 code: code,
                 money: parseInt(wxData.money),
             }
-            alert(JSON.stringify(obj))
             that.$store.dispatch('WX_COIN_PAY', obj).then((res) => {
-                Indicator.close()
                 alert(JSON.stringify(res.data))
                 if (res.data.callStatus == 'SUCCEED') {
                     WeixinJSBridge.invoke(
@@ -39,6 +37,7 @@ export default {
                             "paySign": res.data.data.sign,   //微信签名
                         },
                         function(res) {
+                             alert(JSON.stringify(res))
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 Indicator.open()
                                 that.kk = 1

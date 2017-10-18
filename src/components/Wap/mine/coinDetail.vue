@@ -162,7 +162,7 @@
         })
         return args
       },
-      pay(){
+      async pay(){
         var that = this
         //判断总价钱是否为0
         if(that.amount == 0) {
@@ -190,12 +190,13 @@
               qbType: that.qbType
             }
             // +encodeURI(wxUrl)+
-            window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
+            await window.sessionStorage.setItem('wxCoin', JSON.stringify(data))
             var u = navigator.userAgent;
             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
             var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
             if (isAndroid == true) {
-              window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri="+encodeURI(wxUrl)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+              window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri='+encodeURI(wxUrl)+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+              // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3a%2f%2fwap.yayiabc.com%2f%23%2fkong&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
             } else {
               window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4b1a6fde77626a32&redirect_uri=http%3a%2f%2fwap.yayiabc.com%2f%23%2fkong&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
             }
