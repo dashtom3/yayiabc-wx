@@ -141,14 +141,14 @@
     created: function() {
       var that = this
       var code = this.queryToArgs()['code']
-      alert(code);
+//      alert(code);
       var wx_state = JSON.parse(window.sessionStorage.getItem('wxState'))
       if (code && wx_state == 1) {
         var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
         Indicator.open()
         var obj = {
           token: tokenMethods.getWapToken(),
-          qbType: this.qbType,
+          qbType: wxData.qbType,
           code: code,
           money: parseInt(wxData.money),
         }
@@ -156,13 +156,14 @@
         that.coin = false
         that.qbType = wxData.qbType;
         that.coinallprice = wxData.amount
-        alert(JSON.stringify(obj))
+        that.moneyCoins = wxData.money
+//        alert(JSON.stringify(obj))
 
         that.$store.dispatch('WX_COIN_PAY',obj).then((res) => {
-          alert(JSON.stringify(res.data))
+//          alert(JSON.stringify(res.data))
 //          window.location.reload();
           if (res.data.callStatus == 'SUCCEED') {
-            alert('准备调用微信支付')
+//            alert('准备调用微信支付')
 //            WeixinJSBridge.invoke(
 //              'getBrandWCPayRequest', {
 //                "appId": res.data.data.appid,     //公众号名称，由商户传入
@@ -214,7 +215,7 @@
 //            }
 
             wx.config({
-              debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+              debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
               appId: res.data.data.appid, // 必填，公众号的唯一标识
               timestamp: String(res.data.data.timestamp), // 必填，生成签名的时间戳
               nonceStr: res.data.data.noncestr, // 必填，生成签名的随机串
@@ -230,8 +231,9 @@
                 "paySign": res.data.data.sign, // 支付签名
                 success: function (res) {
                   // 支付成功后的回调函数
-                  alert(JSON.stringify(res))
-                  if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+//                  alert('支付成功')
+//                  alert(JSON.stringify(res))
+//                  if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                     that.kk = 1
                     var timer = setInterval(function(){
                       if (that.kk == 600) {
@@ -242,6 +244,7 @@
                         if (res.num == 2) {
                           clearInterval(timer)
                           Indicator.close()
+//                          alert(window.location.href);
                           that.$router.push({ name: 'payResult', params: {moneyCoins: wxData.money, amount: wxData.amount}})
                           window.sessionStorage.removeItem('wxCoin')
                         } else {
@@ -251,11 +254,11 @@
                       })
                     },2000)
 //                    Toast({message: '充值成功', duration: 1500})
-                  }
+//                  }
                   // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-                  else{
-                    that.$router.go(-1)
-                  }
+//                  else{
+//                    that.$router.go(-1)
+//                  }
                 },
                 cancel: function (res) {
                   that.$router.go(-1)
@@ -263,8 +266,8 @@
               });
             });
             wx.error(function(res){
-              alert(res.err_msg);
-              alert('aa');
+//              alert(res.err_msg);
+//              alert('aa');
               return false;
             });
           } else {
