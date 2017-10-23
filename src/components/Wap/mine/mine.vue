@@ -200,7 +200,7 @@
 
 <script>
   import {tokenMethods} from '../../../vuex/util'
-  import {Toast} from 'mint-ui'
+  import {Toast, Indicator} from 'mint-ui'
   import {GET_ORDER_NUM} from '@vuex/types'
 
   export default {
@@ -267,6 +267,7 @@
           phone: tokenMethods.getWapUser().phone,
           token: tokenMethods.getWapToken()
         }
+        Indicator.open();
         //添加不同订单列表的数量状态
         this.$store.dispatch(GET_ORDER_NUM)
           .then(res => {
