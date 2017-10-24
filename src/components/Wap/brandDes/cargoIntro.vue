@@ -119,6 +119,7 @@ export default {
   border: 1px solid #F3F3F3;
 }
 .good_item {
+  font-size: px2vw(26);
   margin-bottom: 5vw;
 }
 </style>

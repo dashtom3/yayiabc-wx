@@ -321,6 +321,7 @@
     padding-top: px2vw(20);
     color: $themeColor;
     font-size: 3.7333333vw;
+    padding-bottom: px2vw(20);
   }
   .label_a{
     position: relative;
