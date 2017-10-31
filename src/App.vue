@@ -98,6 +98,10 @@
     opacity: 0;
   }
 
+  .mint-indicator-wrapper{
+    z-index: 100;
+  }
+
   @-webkit-keyframes shake {
     from, to {
       -webkit-transform: translate3d(0, 0, 0);
