@@ -236,7 +236,7 @@
 <style scoped lang="scss" rel="stylesheet/scss">
   @import "../../../common/sass/factory";
 
-  .selected{
+  #selected{
     display: none;
   }
   .header {

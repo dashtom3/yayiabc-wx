@@ -25,7 +25,7 @@
       </ul>
     </div>
     <!--产品列表-->
-    <div class="Content_main gridlist-demo-container">
+    <mt-loadmore class="Content_main gridlist-demo-container" :top-method="loadTop" :auto-fill=false ref="loadmore">
       <!--<mu-grid-list class="gridlist-demo">-->
       <div class="Content_list" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true" >
         <div v-for="(item,index) in productData" @click="goProductDetail(item)">
@@ -54,9 +54,10 @@
             </div>
           </div>
         </div>
+        <div v-if="noMoreGood" class="noMoreGood">- End -</div>
       </div>
       <!--</mu-grid-list>-->
-    </div>
+    </mt-loadmore>
     <!--模态框-->
     <div :class="['cover',{cover_hidden:moduleHidden}]">
       <div class="cover_close" @click="closeModule"></div>
@@ -123,7 +124,7 @@
   import { Toast, MessageBox } from 'mint-ui';
   import { tokenMethods } from '../../../vuex/util'
   import MuseUI from 'muse-ui'
-  import {Indicator, InfiniteScroll,Popup} from 'mint-ui'
+  import {Indicator, InfiniteScroll,Popup, LoadMore} from 'mint-ui'
 
   export default {
     data() {
@@ -173,7 +174,6 @@
 //        totalPage:1,
       }
     },
-    props:['chuanClaasif'],
     created() {
       var self = this;
       Indicator.open();
@@ -256,6 +256,7 @@
       //获取产品列表
       getProductList(){
         let that = this;
+        that.noMoreGood = false;
         this.$store.dispatch(QUERY_ITEM_SEARCH_POST, this.args)
           .then(res => {
             res.data.data.forEach(function (item) {
@@ -651,6 +652,15 @@
           this.getCarList();
         })
       },
+      loadTop(){
+        let self = this;
+        self.args.currentPage = 1;
+        self.args.totalPage = 1;
+        self.productData = [];
+        self.productNum = [];
+        self.getProductList()
+        this.$refs.loadmore.onTopLoaded();
+      }
     }
   }
 </script>
@@ -1187,5 +1197,11 @@
     font-size: 3.73vw;
     margin-left: 2vw;
     margin-bottom: 3vw;
+  }
+  .noMoreGood{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    color: #999;
   }
 </style>

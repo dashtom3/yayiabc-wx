@@ -8,9 +8,8 @@
       </div>
 
     </div>
-
+    <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content">
     <!--收藏列表开始-->
-    <div class="c-content">
       <div class="box_position" v-if="collectData !=0">
 
         <div class="collect" v-for="(item,index) in collectData" :key="index">
@@ -42,7 +41,7 @@
       <div v-else class="collect_pic">
         <img  src="../../../images/mine/collect_pic.png" alt="">
       </div>
-    </div>
+    </mt-loadmore>
     <!--末尾-->
   </div >
 </template>
@@ -50,7 +49,7 @@
 <script>
   import { Toast } from 'mint-ui'
   import { CellSwipe } from 'mint-ui'
-  import { MessageBox } from 'mint-ui'
+  import { MessageBox, LoadMore } from 'mint-ui'
   import { tokenMethods } from '../../../vuex/util'
   export default {
     name: 'collect',
@@ -104,6 +103,11 @@
         this.$router.push({path: '/details/' + item.itemId, query: {name: item.item_name, itemId: item.itemId}})
         window.scroll(0, 0)
       },
+      loadTop(){
+        this.collectData = '';
+        this.inits();
+        this.$refs.loadmore.onTopLoaded();
+      }
     }
   }
 
