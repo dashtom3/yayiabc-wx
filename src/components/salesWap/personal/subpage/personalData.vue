@@ -99,11 +99,11 @@
             </el-upload>
         </div>
         <div class="thin-height">
-          <p class="detailTitle">真实姓名*</p>
-          <input class="detail" type="text" placeholder="请输入您的姓名" v-model="saleInfo.trueName">
+          <label for="name" class="detailTitle">真实姓名*</label>
+          <input id="name" class="detail" type="text" placeholder="请输入您的姓名" v-model="saleInfo.trueName">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">性别*</p>
+          <label @click="selectSex" class="detailTitle">性别*</label>
           <div @click="sexVisible = true">
             <p class="detail" v-if="saleInfo.sex == 1">男 ></p>
             <p class="detail" v-else-if="saleInfo.sex == 2">女 > </p>
@@ -111,52 +111,52 @@
           </div>
         </div>
         <div class="thin-height">
-          <p class="detailTitle">身份证号*</p>
-          <input class="detail" type="text" placeholder="请输入您的身份证号" v-model="saleInfo.idCard">
+          <label for="idCard" class="detailTitle">身份证号*</label>
+          <input id="idCard" class="detail" type="text" placeholder="请输入您的身份证号" v-model="saleInfo.idCard">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">工作单位*</p>
-          <input class="detail" type="text" placeholder="请输入工作单位" v-model="saleInfo.workUnit">
+          <label for="workUnit" class="detailTitle">工作单位*</label>
+          <input id="workUnit" class="detail" type="text" placeholder="请输入工作单位" v-model="saleInfo.workUnit">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">工作职位*</p>
-          <input class="detail" type="text" placeholder="请输入您的职位" v-model="saleInfo.workPosition">
+          <label for="workPosition" class="detailTitle">工作职位*</label>
+          <input id="workPosition" class="detail" type="text" placeholder="请输入您的职位" v-model="saleInfo.workPosition">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">单位所在地*</p>
+          <label @click="openPicker('cityAddressPicker')" class="detailTitle">单位所在地*</label>
           <div @click="openPicker('cityAddressPicker')">
             <p class="detail" v-if="saleInfo.part">{{saleInfo.part}} ></p>
             <p class="detail" v-else>请选择 ></p>
           </div>
         </div>
         <div class="wide-height">
-          <p class="detailTitle">详细地址*</p>
+          <label for="address" class="detailTitle">详细地址*</label>
           <div class="detailAddr">
-            <input type="text" class="detail" placeholder="请输入您的详细地址" v-model="saleInfo.address">
+            <input id="address" type="text" class="detail" placeholder="请输入您的详细地址" v-model="saleInfo.address">
           </div>
         </div>
         <div class="thin-height">
-          <p class="detailTitle">推荐人姓名</p>
-          <input class="detail" type="text" placeholder="请输入您的推荐人姓名" v-model="saleInfo.referrals">
+          <label for="referrals" class="detailTitle">推荐人姓名</label>
+          <input id="referrals" class="detail" type="text" placeholder="请输入您的推荐人姓名" v-model="saleInfo.referrals">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">出生日期</p>
+          <label @click="openPicker('birthDatePicker')" class="detailTitle">出生日期</label>
           <div @click="openPicker('birthDatePicker')">
             <p class="detail" v-if="saleInfo.birthday">{{saleInfo.birthday}} ></p>
             <p class="detail" v-else>请选择 ></p>
           </div>
         </div>
         <div class="thin-height">
-          <p class="detailTitle">学历</p>
-          <input class="detail" type="text" placeholder="请输入您的学历" v-model="saleInfo.education">
+          <label for="education" class="detailTitle">学历</label>
+          <input id="education" class="detail" type="text" placeholder="请输入您的学历" v-model="saleInfo.education">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">微信号</p>
-          <input class="detail" type="text" placeholder="请输入您的微信号" v-model="saleInfo.weChar">
+          <label for="weChar" class="detailTitle">微信号</label>
+          <input id="weChar" class="detail" type="text" placeholder="请输入您的微信号" v-model="saleInfo.weChar">
         </div>
         <div class="thin-height">
-          <p class="detailTitle">邮箱</p>
-          <input class="detail" type="text" placeholder="请输入您的邮箱号" v-model="saleInfo.email">
+          <label for="email" class="detailTitle">邮箱</label>
+          <input id="email" class="detail" type="text" placeholder="请输入您的邮箱号" v-model="saleInfo.email">
         </div>
         <!--出生日期选择框-->
         <birth-date-picker ref="birthDatePicker" @birthdatechange="saveBirthDate"></birth-date-picker>
@@ -228,6 +228,9 @@
       edit() {
         this.isEditing = !this.isEditing;
         console.log(this.saleInfo);
+      },
+      selectSex() {
+        this.sexVisible = true
       },
       saveEdit(){
         var params ={};
@@ -348,7 +351,8 @@
         .detailTitle{
           position: absolute;
           left: px2vw(20);
-          top:0;
+          right: 0;
+          top: 0;
         }
         .detail{
           outline: none;
@@ -403,6 +407,7 @@
         .detailTitle{
           position: absolute;
           left: px2vw(20);
+          right: 0;
           top:0;
         }
         .detailAddr{
