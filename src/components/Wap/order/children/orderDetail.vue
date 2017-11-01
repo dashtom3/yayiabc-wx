@@ -207,6 +207,7 @@
         }
       },
       goDetails(good) {
+        sessionStorage.setItem('backJudgeSL', 'order')
         this.$router.push({path: '/details/' + good.itemId, query: {name: good.itemInfo.itemName, itemId: good.itemId}});
         window.scroll(0, 0)
       }
