@@ -14,7 +14,7 @@
         <mu-raised-button label="登录" class="logIn_btn" v-if="!alreadyLog" @click="logInHandler"/>
       </div>
       <div class="needclick checkPos">
-        <el-checkbox class="checkAll needclick" v-if="gwcGoods.length" v-model="selectaLL"
+        <el-checkbox class="checkAll needclick" v-if="gwcGoods.length && isLoaded" v-model="selectaLL"
                      @change="handleCheckAllChange">全选
         </el-checkbox>
       </div>
@@ -73,7 +73,7 @@
         </mt-loadmore>
       </div>
     </div>
-    <div class="shopping-footer clearfix" v-if="gwcGoods.length">
+    <div class="shopping-footer clearfix" v-if="gwcGoods.length && isLoaded">
       <div class="border needclick fl">
         <el-checkbox class="check-all needclick" v-model="selectaLL" @change="handleCheckAllChange">全选</el-checkbox>
         <span class="total">合计： <i>￥{{allMoeny}}</i></span>
@@ -98,6 +98,7 @@
         allMoeny: 0,
         sendDataList: [],
         alreadyLog: true,
+        isLoaded:false,
       }
     },
     created: function () {
@@ -319,6 +320,7 @@
               data[i].totalMoney = data[i].num * data[i].price;
             }
             this.gwcGoods = data;
+            this.isLoaded = true;
           }
         })
       },
@@ -338,7 +340,7 @@
         this.$router.push({path: '/productList'})
       },
       loadTop(){
-        this.gwcGoods = [];
+//        this.gwcGoods = [];
         this.getGwcList()
         this.$refs.loadmore.onTopLoaded();
       }

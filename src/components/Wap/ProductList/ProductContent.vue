@@ -665,6 +665,11 @@
   }
 </script>
 
+<style lang="scss" rel="stylesheet/scss">
+  .mint-loadmore-content{
+    width: 100%;
+  }
+</style>
 <style scoped lang="scss" rel="stylesheet/scss">
   @import "../../../common/sass/factory";
   .ProductContent{
@@ -741,14 +746,16 @@
   }
 
   .Content_main {
-    padding: 0 px2vw(15);
-    margin-top: px2vw(140);
+    margin-top: px2vw(100);
+    background-color: #f4f4f4;
   }
 
   .Content_list {
     width: 100%;
     height: 85vh;
     overflow: scroll;
+    padding: px2vw(40) px2vw(15) 0;
+    background-color: #fff;
   }
 
   .Content_list > div {
