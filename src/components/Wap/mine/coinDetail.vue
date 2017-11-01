@@ -1,6 +1,7 @@
 <template>
-  <div class="wrap">
+  <div>
     <!--选择钱币类型开始-->
+    <div class="wrap">
     <ul class="coinDetail_box">
       <li>
         <span>选择乾币类型</span>
@@ -55,6 +56,7 @@
     </div>
     <!--支付方式结束-->
     <!--立即支付开始-->
+    </div>
     <mu-raised-button label="立即支付" class="pay" @click="pay"/>
     <!--立即支付结束-->
     <!--末尾-->
@@ -377,7 +379,7 @@
   @import "../../../common/sass/factory";
   .wrap{
     overflow: scroll;
-    height: 65vh;
+    height: 67vh;
   }
   .moduleM{
     background-color: rgba(0,0,0,0.5);
