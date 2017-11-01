@@ -1,5 +1,5 @@
 <template>
-  <div :class="['orderSubpage-container',{noOrder:!orderList.length}]" v-infinite-scroll="loadMore"
+  <div :class="['orderSubpage-container',{noOrder:!orderList.length && isLoaded}]" v-infinite-scroll="loadMore"
        infinite-scroll-disabled="busy" infinite-scroll-distance="10">
     <div class="order-wrap" v-if="orderList">
       <mt-loadmore style="width: 100%;height: 100%" :top-method="loadTop" :auto-fill=false ref="loadmore">
@@ -23,7 +23,8 @@
         orderList: [],
         currentPage: 1,
         loading: false,
-        totalPage: 1
+        totalPage: 1,
+        isLoaded:false
       }
     },
     components: {
@@ -40,6 +41,7 @@
     },
     methods: {
       _init() {
+        this.isLoaded = false
         let phone = tokenMethods.getWapUser() && tokenMethods.getWapUser().phone
         if (!phone) MessageBox.alert('请先进行登录').then(() => {
           this.$router.push({name: 'logIn'})
@@ -63,6 +65,7 @@
         try {
           res = await this[GET_ORDER_LIST](this.param)
           this.orderList = this.orderList.concat(res.data.data)
+          this.isLoaded = true
           this.busy = false
           this.totalPage = res.data.totalPage
           Indicator.close()

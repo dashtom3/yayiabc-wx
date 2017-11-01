@@ -10,7 +10,7 @@
         <p class="logistics-id"><span class="title">快递单号：</span>{{LogisticCode}}</p>
       </div>
     </div>
-    <div class="logistics-timeline" v-if="logistics.Traces.length > 0">
+    <div class="logistics-timeline" v-if="isInfo">
       <time-line v-for="(item,index) in logistics.Traces" :key="index">
         <span slot="time">{{item.AcceptTime}}</span>
         <span slot="dec">{{item.AcceptStation}}</span>
@@ -34,6 +34,7 @@
     data() {
       return {
         logistics: {},
+        isInfo: true
       }
     },
     components: {
@@ -67,9 +68,10 @@
       }
     },
     async created() {
+      var that = this;
       let res = await this[QUERY_ORDER_LOG]({orderId: this.order.orderId}).catch(err => console.log(err))
       if (res.data.callStatus === 'SUCCEED') {
-        if (!res.data.data) return
+        if (!res.data.data) return that.isInfo = false
         this.logistics = JSON.parse(res.data.data)
       }
     }

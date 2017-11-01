@@ -39,7 +39,7 @@
 
       <!--无数据显示图片-->
       <div v-else class="collect_pic">
-        <img  src="../../../images/mine/collect_pic.png" alt="">
+        <img  src="../../../images/mine/collect_pic.png" alt="" v-if="isLoaded">
       </div>
     </mt-loadmore>
     <!--末尾-->
@@ -59,6 +59,7 @@
         startX: 0,       //触摸位置
         moveX: 0,       //滑动时的位置
         disX: 0,       //移动距离
+        isLoaded:false
       }
     },
     created: function () {
@@ -94,6 +95,7 @@
         this.$store.dispatch('GET_GOODS_COLLECT', obj).then((res) => {
           console.log(res,'s');
           this.collectData = res.data;
+          this.isLoaded = true;
         })
       },
       // 跳转详情
@@ -104,7 +106,7 @@
         window.scroll(0, 0)
       },
       loadTop(){
-        this.collectData = '';
+//        this.collectData = '';
         this.inits();
         this.$refs.loadmore.onTopLoaded();
       }

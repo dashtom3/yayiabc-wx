@@ -40,7 +40,7 @@
     </div>
     <!--无地址显示图片-->
     <div v-else class="address_pic">
-      <img  src="../../../images/mine/address_pic.png" alt="">
+      <img  src="../../../images/mine/address_pic.png" alt="" v-if="isLoaded">
     </div>
     <!--添加地址开始-->
     <div class="addAddress" @click="goToAddAddress(-1)">
@@ -58,7 +58,8 @@
     name: 'address',
     data(){
       return{
-        addressData:''
+        addressData:'',
+        isLoaded:false
       }
     },
     created: function () {
@@ -93,6 +94,7 @@
           if (res.callStatus === 'SUCCEED') {
             this.addressData = res.data;
             console.log(this.addressData);
+            this.isLoaded = true;
           } else {
           }
         })
