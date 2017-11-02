@@ -115,7 +115,7 @@
         // this.updataNum(this.gwcGoods[index].num, row)
       },
       keyupHandler($event){
-        let keyCode = $event.keyCode ? $event.keyCode : $event.charCode; 
+        let keyCode = $event.keyCode ? $event.keyCode : $event.charCode;
         if(keyCode !== 8){
           let numVal = parseInt(this.goodDefaultNum) || 0
           numVal = numVal < 1 ? 1 : numVal
@@ -192,8 +192,22 @@
               that.kuCunBuZu = false;
             }
             that.nowGoodSKUDefault();
+            that.oneSkuDefault();
           }
         })
+      },
+      // 只有一个sku默认选中
+      oneSkuDefault(){
+        let that = this;
+        let skuArr = [];
+        for(let i = 0;i < that.nowGoodDetails.itemValueList.length;i++){
+          skuArr.push(that.nowGoodDetails.itemValueList[i].itemSKU)
+        }
+        if(skuArr.length === 1){
+          for(let i = 0;i < that.items.length;i++){
+            that.changeAttSty(0,that.items[i],i)
+          }
+        }
       },
       // 框中修改数量
       oneGoodNumChange:function() {
