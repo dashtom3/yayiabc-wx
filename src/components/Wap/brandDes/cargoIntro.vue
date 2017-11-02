@@ -18,7 +18,7 @@
       <div class="good_item">商家货号：{{itemDetail.storeItemId}}</div>
       <div class="good_item">使用范围：{{itemDetail.itemRange}}</div>
       <div class="good_item">生产企业名称：{{itemDetail.producePompany}}</div>
-      <div>其他：{{itemDetail.remark}}</div>
+      <div class="good_item">其他：{{itemDetail.remark}}</div>
     </div>
     <div class="clearfix" style="width: 100%; height: 10vw;"></div>
   </div>
