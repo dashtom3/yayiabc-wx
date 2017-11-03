@@ -2,7 +2,7 @@
   <div class="searchWord">
     <div class="search_box">
       <form action="http://47.93.48.111:8080/api/item/itemSearch" method="post" enctype="multipart/form-data" v-on:submit.prevent="search_cargo">
-        <input class="search_word" type="search" name="keyWord" @focus="searchActive()" v-focus @keyup.enter="search_cargo" v-model="searchCargo" autocomplete="on" placeholder="请输入关键字" >
+        <input class="search_word" type="search" name="keyWord" @focus="searchActive()" v-focus autofocus="autofocus" @keyup.enter="search_cargo" v-model="searchCargo" autocomplete="on" placeholder="请输入关键字" >
       </form>
       <img class="search_img" src="../../../images/index/search.png" alt="img">
       <div class="cancel_btn" @click="cancelSearch">取消</div>
@@ -142,7 +142,7 @@ export default {
       let timer1=window.setTimeout(function(){
         that.$router.go(-1);
         window.clearTimeout(timer1);
-      },500)
+      },350)
     },
   }
 }
