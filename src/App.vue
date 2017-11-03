@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 <!--     <transition :name="'vux-pop-' + ($store.state.index.direction === 'forward' ? 'in' : 'out')"> -->
-      <keep-alive :include="['register', 'salesRegister', 'wxlogIn']">
+      <keep-alive :include="['register', 'salesRegister', 'wxlogIn','productList']">
         <router-view></router-view>
       </keep-alive>
 <!--     </transition> -->

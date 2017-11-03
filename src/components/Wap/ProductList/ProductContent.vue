@@ -27,7 +27,7 @@
     <!--产品列表-->
     <mt-loadmore class="Content_main gridlist-demo-container" :top-method="loadTop" :auto-fill=false ref="loadmore">
       <!--<mu-grid-list class="gridlist-demo">-->
-      <div class="Content_list" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true" >
+      <div ref="scrollBox" class="Content_list" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true" >
         <div v-for="(item,index) in productData" @click="goProductDetail(item)">
           <div>
             <img class="product_pic" :src=item.itemDetail.itemPica alt="">
@@ -184,7 +184,29 @@
       this.getBrandList();
       this.getCarList();
     },
+    activated (){
+      if(this.$route.query.ListBack === "detail" || this.$route.query.ListBack === "carEntry")
+      {
+        let scrollRight = window.sessionStorage.getItem('scrollList');
+        scrollRight = JSON.parse(scrollRight);
+        this.$refs.scrollBox.scrollTop = scrollRight.scrollTopRight;
+      }
+    },
+    deactivated (){
+      let scrollList = {
+        scrollTopRight: this.scrollTopRight,
+      };
+      scrollList = JSON.stringify(scrollList);
+      window.sessionStorage.setItem('scrollList',scrollList);
+    },
+
     mounted(){
+
+      let _this = this;
+      this.$refs.scrollBox.onscroll = function () {
+        _this.scrollTopRight = _this.$refs.scrollBox.scrollTop;
+      };
+
       let self = this;
       this.getProductList();
       this.$store.watch(

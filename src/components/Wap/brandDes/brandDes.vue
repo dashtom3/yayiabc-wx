@@ -328,7 +328,7 @@ export default {
         this.$router.push({name: 'orderDetail'})
         sessionStorage.removeItem('backJudgeSL')
       } else {
-        this.$router.push({path:'/productList'});
+        this.$router.push({path:'/productList',query:{ListBack: 'detail'}});
       }
     },
     changeActive1: function(tabText) {
