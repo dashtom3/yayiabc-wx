@@ -8,7 +8,8 @@
       </div>
 
     </div>
-    <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content">
+    <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState">
+      <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
     <!--收藏列表开始-->
       <div class="box_position" v-if="collectData !=0">
 
@@ -39,7 +40,7 @@
 
       <!--无数据显示图片-->
       <div v-else class="collect_pic">
-        <img  src="../../../images/mine/collect_pic.png" alt="" v-if="isLoaded">
+        <img  src="../../../images/mine/collect_pic.png" alt="" v-if="!isLoading">
       </div>
     </mt-loadmore>
     <!--末尾-->
@@ -51,6 +52,8 @@
   import { CellSwipe } from 'mint-ui'
   import { MessageBox, LoadMore } from 'mint-ui'
   import { tokenMethods } from '../../../vuex/util'
+  import topLoadMore from '../../salesWap/index/topLoadMore.vue'
+
   export default {
     name: 'collect',
     data () {
@@ -59,11 +62,14 @@
         startX: 0,       //触摸位置
         moveX: 0,       //滑动时的位置
         disX: 0,       //移动距离
-        isLoaded:false
+        isLoading:false
       }
     },
     created: function () {
       this.inits();
+    },
+    components: {
+      topLoadMore
     },
     methods:{
       deleteHandler(item, index) {
@@ -87,6 +93,7 @@
         this.$router.push({path:'/yayi/mine'})
       },
       inits:function () {
+        this.isLoading = true;
         var obj = {
           phone: tokenMethods.getWapUser().phone,
           token: tokenMethods.getWapToken()
@@ -95,7 +102,7 @@
         this.$store.dispatch('GET_GOODS_COLLECT', obj).then((res) => {
           console.log(res,'s');
           this.collectData = res.data;
-          this.isLoaded = true;
+          this.isLoading = false;
         })
       },
       // 跳转详情
@@ -108,6 +115,12 @@
       loadTop(){
 //        this.collectData = '';
         this.inits();
+      },
+      isState(val){
+        this.$refs.topLoadMore.states(val)
+      },
+      //把下拉刷新完成之后回调的mt的方法传入我的组件里
+      isLoaded(){
         this.$refs.loadmore.onTopLoaded();
       }
     }
