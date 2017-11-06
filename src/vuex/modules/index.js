@@ -5,8 +5,8 @@ import axios from 'axios'
 
 const state = {
   direction: 'forward',
-  // baseUrl: 'http://wap.yayiabc.com:6181/api',
-  baseUrl: 'http://47.93.48.111:8080/api',
+  baseUrl: 'http://wap.yayiabc.com:6181/api',
+  // baseUrl: 'http://47.93.48.111:8080/api',
   bannerList: [],
   brandListData: [],
   classifyList: [],

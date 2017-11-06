@@ -100,6 +100,7 @@ export default {
       } else {
         var obj = {phone: that.mobilePhone, type: 2}
         that.$store.dispatch('GET_IDENTICODE', obj).then((res) => {
+          console.log(res.data)
           if (res.data.callStatus === 'SUCCEED') {
             for (let i = 0; i <= 60; i++) {
               window.setTimeout(function () {
@@ -115,7 +116,8 @@ export default {
               }, i * 1000)
             }
           } else {
-            Toast({message: res.data.msg, duration: 1500})
+            // Toast({message: res.data.msg, duration: 1500})
+            Toast({message: "手机号还未注册，请先注册", duration: 1500})
           }
         })
       }
