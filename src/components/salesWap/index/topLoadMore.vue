@@ -94,5 +94,6 @@
     text-align: center;
     line-height: 50px;
     vertical-align: middle;
+    color: #999;
   }
 </style>
