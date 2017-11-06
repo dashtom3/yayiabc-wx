@@ -2,6 +2,7 @@ import {
   get,
   getWithToken,
   getWithSaleToken,
+  getWithVerfiCode,
   post,
   postWithToken,
   postWithSaleToken,
@@ -419,7 +420,7 @@ export function saleMsgLogin(params) {
 
 // 创客获取验证码
 export function getSaleCaptcha(params) {
-  return get('/saleLog/getVerifyCode', params)
+  return getWithVerfiCode('/saleLog/getVerifyCode', params)
 }
 
 // 创客忘记密码

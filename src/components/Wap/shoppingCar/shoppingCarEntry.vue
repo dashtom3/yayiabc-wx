@@ -13,17 +13,18 @@
         <p>登录后同步购物车中的商品</p>
         <mu-raised-button label="登录" class="logIn_btn" @click="logInHandler"/>
       </div>
-      <div class="empty_car" v-if="!gwcGoods.length && isLoaded">
+      <div class="empty_car" v-if="gwcGoods.length && !isLoading">
         <img src="../../../images/index/shoppingCar1.png" alt="购物车">
         <p>购物车中空空哒~</p>
       </div>
       <div class="needclick checkPos">
-        <el-checkbox class="checkAll needclick" v-if="gwcGoods.length && isLoaded" v-model="selectaLL"
+        <el-checkbox class="checkAll needclick" v-if="gwcGoods.length" v-model="selectaLL"
                      @change="handleCheckAllChange">全选
         </el-checkbox>
       </div>
-      <div class="scroll-wrapper" ref="wrapper">
-        <mt-loadmore style="width: 100%;height: 100%" :top-method="loadTop" :auto-fill=false ref="loadmore">
+      <div class="scroll-wrapper">
+        <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState">
+          <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
         <ul class="shoppingList">
           <li v-for="(good, index) in gwcGoods" :key="good.itemPropertyInfo">
             <mt-cell-swipe
@@ -77,7 +78,7 @@
         </mt-loadmore>
       </div>
     </div>
-    <div class="shopping-footer clearfix" v-if="gwcGoods.length && isLoaded">
+    <div class="shopping-footer clearfix" v-if="gwcGoods.length">
       <div class="border needclick fl">
         <el-checkbox class="check-all needclick" v-model="selectaLL" @change="handleCheckAllChange">全选</el-checkbox>
         <span class="total">合计： <i>￥{{allMoeny}}</i></span>
@@ -90,6 +91,7 @@
 <script>
   import { Toast, Indicator, CellSwipe, MessageBox, Loadmore} from 'mint-ui'
   import {tokenMethods} from '../../../vuex/util'
+  import topLoadMore from '../../salesWap/index/topLoadMore.vue'
 
   export default {
     name: 'shoppingCarEntry',
@@ -102,7 +104,7 @@
         allMoeny: 0,
         sendDataList: [],
         alreadyLog: true,
-        isLoaded:false,
+        isLoading:false
       }
     },
     created: function () {
@@ -112,6 +114,9 @@
       if (!tokenMethods.getWapToken()) {
         that.alreadyLog = false
       }
+    },
+    components: {
+      topLoadMore
     },
     watch: {
       gwcGoods: {
@@ -311,6 +316,7 @@
         this.selectaLL = !this.selectaLL;
       },
       getGwcList: function () {
+        this.isLoading = true;
         var that = this;
         var obj = {
           token: tokenMethods.getWapToken()
@@ -324,7 +330,7 @@
               data[i].totalMoney = data[i].num * data[i].price;
             }
             this.gwcGoods = data;
-            this.isLoaded = true;
+            this.isLoading = false;
           }
         })
       },
@@ -346,6 +352,12 @@
       loadTop(){
 //        this.gwcGoods = [];
         this.getGwcList()
+      },
+      isState(val){
+        this.$refs.topLoadMore.states(val)
+      },
+      //把下拉刷新完成之后回调的mt的方法传入我的组件里
+      isLoaded(){
         this.$refs.loadmore.onTopLoaded();
       }
     }
@@ -608,6 +620,10 @@
         font-size: px2vw(24);
       }
     }
+  }
+  .c-content{
+    width: 100%;
+    height: 100%;
   }
 </style>
 
