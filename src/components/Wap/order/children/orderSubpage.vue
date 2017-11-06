@@ -2,7 +2,7 @@
   <div :class="['orderSubpage-container',{noOrder:!orderList.length && isLoaded}]" v-infinite-scroll="loadMore"
        infinite-scroll-disabled="busy" infinite-scroll-distance="10">
     <div class="order-wrap" v-if="orderList">
-      <mt-loadmore style="width: 100%;height: 100%" :top-method="loadTop" :auto-fill=false ref="loadmore">
+      <mt-loadmore class="orders" :top-method="loadTop" :auto-fill=false ref="loadmore">
       <order-component :key="index" v-for="(item,index) in orderList" :order="item"
                        class="order-content"></order-component>
       </mt-loadmore>
@@ -122,5 +122,10 @@
       background-repeat: no-repeat;
       background-size: px2vw(136) px2vw(199);
     }
+  }
+  .orders{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
   }
 </style>
