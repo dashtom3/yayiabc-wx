@@ -372,7 +372,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  background: #fff;
+  z-index: 9999;
   padding-bottom: 10vw;
   border-bottom:  px2vw(1) solid $borderColor;
   text-align: center;
@@ -435,6 +436,7 @@ export default {
   position: fixed;
   bottom: 0;
   border-top: 1px solid #DBDBDB;
+  z-index: 1030;
 }
 .collectCargo {
   width: 11.8vw;
