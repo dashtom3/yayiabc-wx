@@ -1,5 +1,5 @@
 <template>
-  <div class="exchangeDeatail">
+  <div class="exchangeDeatail" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true">
     <div class="detail_list" v-for="item in getData" :key="item.userId" v-if="item.qbRget">
         <div>
           <h3 >收入</h3>
@@ -43,6 +43,7 @@
     methods: {
       // 优惠码兑换乾币
       getMoneyList:function(){
+        Indicator.open();
         var that = this
         var obj = {
           token: tokenMethods.getWapToken(),
@@ -71,7 +72,7 @@
       },
       loadMore() {
         if(this.currentPage == this.totalCount){
-          Toast({message:'没有更多信息了',duration:3000})
+          Toast({message:'没有更多信息了',duration:2000})
         }else {
           this.currentPage = this.currentPage + 1;
           this.getMoneyList();
@@ -84,7 +85,7 @@
   @import "../../../common/sass/factory";
 
   .exchangeDeatail{
-    margin-bottom: px2vw(30);
+    margin-bottom: px2vw(50);
   }
   .fontSizeY{
     font-size: px2vw(24);
