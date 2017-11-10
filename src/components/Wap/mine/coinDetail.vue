@@ -380,6 +380,7 @@
   .wrap{
     overflow: scroll;
     height: 67vh;
+    padding-bottom: px2vw(50);
   }
   .moduleM{
     background-color: rgba(0,0,0,0.5);

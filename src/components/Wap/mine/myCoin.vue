@@ -120,7 +120,6 @@
       getSave(){
         let obj = {}
         this.$store.dispatch('GET_USERS_DATA',obj).then((res) => {
-          console.log(res.data.data,'哈哈');
           this.qbNum.qbBalance = res.data.data.qbBalance;
           this.qbNum.aqb = res.data.data.cQb;
           this.qbNum.bqb = res.data.data.bQb;

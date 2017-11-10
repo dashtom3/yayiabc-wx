@@ -8,10 +8,10 @@
       </div>
 
     </div>
-    <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState">
+    <mt-loadmore :top-method="loadTop" :auto-fill='true' ref="loadmore" class="c-content" v-on:top-status-change="isState">
       <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
     <!--收藏列表开始-->
-      <div class="box_position" v-show="collectData !=0">
+      <div class="box_position" v-show="collectData != 0">
 
         <div class="collect" v-for="(item,index) in collectData" :key="index">
           <mt-cell-swipe
@@ -39,7 +39,7 @@
       <!--收藏列表结束-->
 
       <!--无数据显示图片-->
-      <div v-show="collectData ==0" class="collect_pic">
+      <div v-show="collectData == 0" class="collect_pic">
         <img  src="../../../images/mine/collect_pic.png" alt="" v-if="!isLoading">
       </div>
     </mt-loadmore>
@@ -50,7 +50,7 @@
 <script>
   import { Toast } from 'mint-ui'
   import { CellSwipe } from 'mint-ui'
-  import { MessageBox, LoadMore } from 'mint-ui'
+  import { MessageBox,Indicator,LoadMore } from 'mint-ui'
   import { tokenMethods } from '../../../vuex/util'
   import topLoadMore from '../../salesWap/index/topLoadMore.vue'
 
@@ -58,7 +58,7 @@
     name: 'collect',
     data () {
       return {
-        collectData:'',
+        collectData: [],
         startX: 0,       //触摸位置
         moveX: 0,       //滑动时的位置
         disX: 0,       //移动距离
@@ -114,7 +114,7 @@
       },
       loadTop(){
         Indicator.open();
-        this.collectData = '';
+        this.collectData = [];
         this.inits();
       },
       isState(val){

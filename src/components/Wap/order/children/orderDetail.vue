@@ -77,14 +77,16 @@
       <ul :class="['invoice-list',{'no-invoice-info':invoice.invoiceHand}]">
         <li class="invoice-item" v-if="invoice.invoiceHand">不申请发票</li>
         <li class="invoice-item" v-if="invoice.invoiceStyle === '增值税发票'">发票类型：{{invoice.invoiceStyle}}</li>
+        <li class="invoice-item" v-if="invoice.invoiceStyle === '普通发票'">发票类型：{{invoice.invoiceStyle}}</li>
         <li class="invoice-item" v-if="invoice.invoiceStyle === '普通发票'">发票性质：{{invoice.invoiceState}}</li>
         <li class="invoice-item" v-if="invoice.companyName ">单位名称：{{invoice.companyName}}</li>
-        <li class="invoice-item" v-if="invoice.invoiceHead">发票抬头：{{invoice.invoiceHead}}</li>
+        <li class="invoice-item" v-if="invoice.invoiceHead && invoice.invoiceState === '个人'">发票抬头：{{invoice.invoiceHead}}</li>
+        <li class="invoice-item" v-if="invoice.invoiceHead && invoice.invoiceState === '公司'">公司抬头：{{invoice.invoiceHead}}</li>
         <li class="invoice-item" v-if="invoice.taxpayerNum">纳税人识别号：{{invoice.taxpayerNum}}</li>
-        <li class="invoice-item" v-if="invoice.opneBank">开户银行：{{invoice.opneBank}}</li>
-        <li class="invoice-item" v-if="invoice.opneBank">开户银行账号：{{invoice.bankNumber}}</li>
         <li class="invoice-item" v-if="invoice.registeredAddress">注册地址：{{invoice.registeredAddress}}</li>
         <li class="invoice-item" v-if="invoice.registeredPhone">注册电话：{{invoice.registeredPhone}}</li>
+        <li class="invoice-item" v-if="invoice.opneBank">开户银行：{{invoice.opneBank}}</li>
+        <li class="invoice-item" v-if="invoice.opneBank">银行账号：{{invoice.bankNumber}}</li>
         <li class="invoice-item" v-if="invoice.stickNanme">收票人姓名：{{invoice.stickNanme}}</li>
         <li class="invoice-item" v-if="invoice.stickPhone">收票人手机号：{{invoice.stickPhone}}</li>
         <li class="invoice-item" v-if="invoice.stickaddress">收票人地址：{{invoice.stickaddress}}</li>
@@ -174,11 +176,11 @@
         if (res.data.callStatus === 'SUCCEED') {
           let invoice = res.data.data
           if (invoice) {
-            if (invoice.invoiceStyle === '1') {
+            if (invoice.invoiceStyle === '0') {
               //普通发票
               this.invoice = {
                 invoiceStyle: '普通发票',
-                invoiceState: (invoice.invoiceState === '1' ? '单位' : '个人'),
+                invoiceState: (invoice.invoiceState === '1' ? '公司' : '个人'),
                 taxpayerNum: (invoice.taxpayerNum ? invoice.taxpayerNum : undefined),
                 invoiceHead: (invoice.companyName ? invoice.companyName : undefined)
               }
