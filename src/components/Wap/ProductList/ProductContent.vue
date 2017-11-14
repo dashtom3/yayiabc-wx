@@ -32,7 +32,7 @@
       <div ref="scrollBox" class="Content_list" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true" >
         <div v-for="(item,index) in productData" @click="goProductDetail(item)">
           <div>
-            <img class="product_pic" :src=item.itemDetail.itemPica alt="">
+            <img class="product_pic" :src="item.itemDetail.itemPica +'?imageView2/1/w/80/h/80'" alt="">
           </div>
           <div>
             <h3>{{item.itemName}}</h3>
