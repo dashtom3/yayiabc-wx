@@ -1,5 +1,6 @@
 <template>
   <div class="brandDes">
+    <div class="brandDesHeadWrap_a">
     <div class="logIn_header">
       <div class="header_box" @click="back">
         <img class="header_back" src="../../../images/logIn/back.png" alt="img">
@@ -12,12 +13,15 @@
       <div class="tab_item" :class="{spe: isActive3}" @click="changeActive3(tab03Text);">使用说明</div>
       <div class="tab_item" :class="{spe: isActive4}" @click="changeActive4(tab04Text);">评论</div>
     </div>
-    <div class="clearfix"></div>
+    </div>
+    <!-- <div class="clearfix"></div> -->
+    <div class="brandDesWrap">
     <!-- 点击导航后要切换的内容 -->
-    <transition name="component-fade" mode="out-in">
-      <component :is="currentView" keep-alive></component>
-    </transition>
-    <div class="bottom_box">
+      <transition name="component-fade" mode="out-in">
+        <component :is="currentView" keep-alive></component>
+      </transition>
+    </div>
+    <div class="bottom_box_a">
       <div class="collectCargo" @click="collectCargo">
         <img v-if="starImg" src="../../../images/details/star.png" alt="img">
         <img v-else src="../../../images/details/star_blue.png" alt="img">
@@ -362,6 +366,29 @@ export default {
     },
 }
 </script>
+<style lang="scss" rel="stylesheet/scss">
+  @import "../../../common/sass/factory";
+  body {
+    &.full-body{
+      position: fixed !important;
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      .bottom_box_a{
+        position: absolute !important;
+      }
+      .brandDesHeadWrap_a{
+        position: absolute !important;
+      }
+    }
+  }
+</style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
 @import "../../../common/sass/factory";
@@ -369,15 +396,22 @@ export default {
   width: 100vw;
   height: px2vw(88);
   line-height: px2vw(88);
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: #fff;
-  z-index: 9999;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // background: #fff;
+  // z-index: 9999;
   padding-bottom: 10vw;
   border-bottom:  px2vw(1) solid $borderColor;
   text-align: center;
   background-color: $themeColor;
+}
+.brandDesHeadWrap_a{
+  position: fixed;
+  top:0;
+  left: 0;
+  background: #fff;
+  z-index: 9999;
 }
 .header_box {
   width: px2vw(70);
@@ -419,7 +453,7 @@ export default {
 .tab_box {
   width: 100vw;
   height: 10vw;
-  margin-top: px2vw(88);
+  // margin-top: px2vw(88);
   border-bottom: 1px solid $borderColor;
 }
 .tab_item {
@@ -430,7 +464,7 @@ export default {
   font-size: 14px;
   float: left;
 }
-.bottom_box {
+.bottom_box_a{
   width: 100vw;
   height: 12vw;
   position: fixed;

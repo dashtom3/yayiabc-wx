@@ -25,9 +25,10 @@
       </ul>
     </div>
     <!--产品列表-->
-    <mt-loadmore class="Content_main gridlist-demo-container" :top-method="loadTop" :auto-fill=false ref="loadmore"  v-on:top-status-change="isState">
+    <!-- <mt-loadmore class="Content_main gridlist-demo-container" :top-method="loadTop" :auto-fill=false ref="loadmore"  v-on:top-status-change="isState"> -->
       <!--<mu-grid-list class="gridlist-demo">-->
-      <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
+      <!-- <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore> -->
+      <div class="Content_main gridlist-demo-container">
       <div ref="scrollBox" class="Content_list" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true" >
         <div v-for="(item,index) in productData" @click="goProductDetail(item)">
           <div>
@@ -57,8 +58,9 @@
         </div>
         <div v-if="noMoreGood" class="noMoreGood">- End -</div>
       </div>
+      </div>
       <!--</mu-grid-list>-->
-    </mt-loadmore>
+    <!-- </mt-loadmore> -->
     <!--模态框-->
     <div :class="['cover',{cover_hidden:moduleHidden}]">
       <div class="cover_close" @click="closeModule"></div>
@@ -207,14 +209,11 @@
       scrollList = JSON.stringify(scrollList);
       window.sessionStorage.setItem('scrollList',scrollList);
     },
-
     mounted(){
-
       let _this = this;
       this.$refs.scrollBox.onscroll = function () {
         _this.scrollTopRight = _this.$refs.scrollBox.scrollTop;
       };
-
       let self = this;
       this.getProductList();
       this.$store.watch(
@@ -296,7 +295,7 @@
               that.productData.push(item);
             })
             that.args.totalPage = res.data.totalPage;
-            console.log('aaaaa',this.args,res.data);
+            // console.log('aaaaa',this.args,res.data);
 //              this.productNum = this.productData.map(item => []);  //返回0
             if(tokenMethods.getWapToken()) {
 //              let count = 0;

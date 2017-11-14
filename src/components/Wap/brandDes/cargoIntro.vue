@@ -91,10 +91,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
 @import "../../../common/sass/factory";
+.cargoIntro{
+  padding-top: px2vw(160)
+}
 .tab_box {
   width: 100vw;
   height: 11.2vw;
-  margin-top: 4vw;
+  margin-top: px2vw(28);
   margin-bottom: 4vw;
 }
 .tab_item {

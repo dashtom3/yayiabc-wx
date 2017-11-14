@@ -131,7 +131,8 @@
       }
     },
     created (){
-      console.log(this.COMPANY_INVOICE);
+      // console.log(this.COMPANY_INVOICE);
+      console.log(JSON.parse(localStorage.getItem('INVOICE')))
       this.judgeIsSaveed();
     },
     mounted (){
@@ -144,8 +145,9 @@
     },
     methods: {
       judgeIsSaveed (){
-        let saveData = this.COMPANY_INVOICE;
-        if(saveData.value === 0)
+        // let saveData = this.COMPANY_INVOICE;
+        let saveData = JSON.parse(localStorage.getItem('INVOICE'))
+        if(saveData.value === 1)
         {
           this.activeTab = saveData.invoiceStyle;
           this.tab = saveData.InvoiceState;
@@ -153,11 +155,11 @@
           this.taxpayerNum = saveData.taxpayerNum;
           this.invoiceHand = saveData.invoiceHand;
         }
-        if(saveData.value === 1)
+        if(saveData.value === 2)
         {
           this.activeTab = saveData.invoiceStyle;
           this.tab = saveData.InvoiceState;
-            this.companyName2 = saveData.companyName;
+          this.companyName2 = saveData.companyName;
           this.invoiceHand = saveData.invoiceHand;
         }else {
           return
@@ -212,6 +214,7 @@
            }
           }
           this.$store.dispatch('COMPANY_INVOICE' , obj);
+          localStorage.setItem('INVOICE', JSON.stringify(obj));
           Toast({message: '保存发票信息成功', duration: 1500})
           this.$router.push({path:'/suborder'})
         }
@@ -233,6 +236,7 @@
             }
           }
           this.$store.dispatch('COMPANY_INVOICE' , obj);
+          localStorage.setItem('INVOICE', JSON.stringify(obj))
           Toast({message: '保存发票信息成功', duration: 1500})
           this.$router.push({path:'/suborder'})
         }

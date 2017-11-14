@@ -286,8 +286,6 @@
           .catch(e => Toast(e))
         //查询个人信息
         that.$store.dispatch('GET_PERSON_LIST', obj).then((res) => {
-          console.log(res);
-          console.log(JSON.stringify(res), '绑定完微信')
           this.showLogin = true;
           if (res.errorCode === 'RE_LOGIN') {
             this.showLogin = false;

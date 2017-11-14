@@ -81,15 +81,37 @@
       }
       else if(this.$route.query.editJudge == -2)
       {
+        if (!tokenMethods.getWapUser()) return
+        var obj = {
+          phone: tokenMethods.getWapUser().phone,
+          token: tokenMethods.getWapToken()
+        }
         this.emptys = true;
         this.title = "添加地址";
-        this.addressData.receiverName = '';
-        this.addressData.phone = '';
-        this.addressData.city = '';
-        this.addressData.county = '';
-        this.addressData.receiverDetail = '';
-        this.addressData.isDefault = false;
-        this.isToGoAddress = false
+        this.$store.dispatch('GET_PERSON_LIST', obj).then((res) => {
+          console.log(res)
+          if (res.callStatus === 'SUCCEED') {
+            let strAddress = ''
+            strAddress = res.data.part.split('/')
+            this.addressData.receiverName = res.data.trueName
+            this.addressData.phone = res.data.phone
+            this.addressData.province = strAddress[0]
+            this.addressData.city = strAddress[1]
+            this.addressData.county = strAddress[2]
+            this.addressR = strAddress.join('')
+            this.addressData.receiverDetail = res.data.workAddress
+            this.addressData.isDefault = false
+            this.isToGoAddress = false
+            // this.emptys = false
+            // this.addressData.receiverName = ''
+            // this.addressData.phone = ''
+            // this.addressData.city = ''
+            // this.addressData.county = ''
+            // this.addressData.receiverDetail = ''
+            // this.addressData.isDefault = false
+            // this.isToGoAddress = false
+          }
+        })
       }
       else if(this.$route.query.editJudge >= 0){
         this.emptys = false;
@@ -107,7 +129,6 @@
           if (res.callStatus === 'SUCCEED') {
             this.addressData = res.data[this.$route.query.editJudge];
             this.addressR = this.addressData.city + this.addressData.county;
-            console.log( this.addressData ,'呵呵');
           }
         })
       },
@@ -142,7 +163,6 @@
             }
             if(this.hasSpace(obj[item]))
             {
-              console.log(obj[item]);
               Toast({message: '请添加收货地址', duration: 1500})
               return;
             }

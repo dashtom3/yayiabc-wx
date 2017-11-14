@@ -258,7 +258,6 @@
       qianbi_des: function() {
         var that = this;
         if (that.qianbi_des > that.nowQb) {
-          Toast({message: '本单最多只可使用' + that.nowQb + '乾币！', duration: 1500})
           that.qianbi_des = that.nowQb
         } else if (that.qianbi_des == '') {
           that.hasCount = false
@@ -269,6 +268,8 @@
         let total = that.gwcTotal + that.freight
         if (that.allQb >= total) {
           that.nowQb = total
+          that.qianbi_des = that.nowQb
+          Toast({message: '本单最多只可使用' + that.nowQb + '乾币！', duration: 1500})
         }
       }
     },
@@ -276,7 +277,6 @@
       this.getDeparture();
       this.getSessionPaper();
       this.initInvoice();
-      console.log('23232')
       var that = this
       var arr = JSON.parse(window.sessionStorage.getItem('suborderData'))
       // console.log(arr,'array')
@@ -352,7 +352,6 @@
       getQbNow: function() {
         var that = this
         that.$store.dispatch('GET_QB_NOW').then((res) => {
-          console.log(res,'df')
           if (res.callStatus === 'SUCCEED') {
               that.allQb = res.fl;
               that.nowQb = res.fl;
@@ -428,6 +427,7 @@
         that.$store.dispatch('GET_FREIGHT', freight).then((res) => {
           if (res.callStatus === 'SUCCEED') {
             // console.log(res.data.postFee,'freight')
+            console.log(res)
             that.freight = res.data.postFee
             let total = that.gwcTotal + that.freight
             if (that.allQb >= total) {
@@ -626,12 +626,14 @@
       selectUse: function () {
         this.data.qb = '1';
         this.data.qbText = '使用';
-        this.qb_input = true
+        this.qb_input = true;
+        this.qbDed();
       },
       selectNoUse: function () {
         this.data.qb = '0';
         this.data.qbText = '不使用';
         this.qb_input = false;
+        this.qbdk = 0;
         window.sessionStorage.removeItem('qbCount')
       },
       selectWx: function () {

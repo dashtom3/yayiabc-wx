@@ -126,7 +126,7 @@
     position: fixed;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
-    /*top: px2vw(88);*/
+    // top: px2vw(88);
     left: 0;
     background-color: $borderColor;
     height: 85vh;

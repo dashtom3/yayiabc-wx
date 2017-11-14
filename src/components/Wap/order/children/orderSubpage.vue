@@ -1,8 +1,8 @@
 <template>
-  <div :class="['orderSubpage-container',{noOrder:!orderList.length && !isLoading}]" v-infinite-scroll="loadMore"
-       infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+  <div :class="['orderSubpage-container',{noOrder:!orderList.length && !isLoading}]">
     <div class="order-wrap" v-if="orderList">
-      <mt-loadmore class="orders" :top-method="loadTop" :auto-fill=false ref="loadmore" v-on:top-status-change="isState">
+      <mt-loadmore class="orders" :top-method="loadTop" :auto-fill=false ref="loadmore" v-on:top-status-change="isState" v-infinite-scroll="loadMore"
+       infinite-scroll-disabled="busy" infinite-scroll-distance="10">
         <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
         <order-component :key="index" v-for="(item,index) in orderList" :order="item"
                        class="order-content"></order-component>
@@ -84,8 +84,10 @@
       },
       loadTop(){
         this.orderList = []
+        this.currentPage = 1
         Indicator.open()
         this._init();
+        // this.$refs.loadmore.onTopLoaded();
       },
       isState(val){
         this.$refs.topLoadMore.states(val)
