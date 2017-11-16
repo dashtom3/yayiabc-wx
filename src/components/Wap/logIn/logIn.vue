@@ -146,7 +146,12 @@
             Toast({message: '登录成功', duration: 1500})
             that.mobilePhone = ''
             that.password = ''
-            that.$router.push({path: '/'})
+             if(this.$route.query.backName)
+            {
+              that.$router.push({path: this.$route.query.backName})
+            }else {
+              that.$router.push({path: '/'})
+            }
           } else {
             Toast({message: res.data.msg, duration: 1500})
           }
@@ -162,7 +167,13 @@
         that.$router.push({path: '/forgetPwd'})
       },
       back: function () {
-        this.$router.go(-1)
+        if(this.$route.query.backName)
+        {
+          this.$router.push({path: this.$route.query.backName});
+        }else {
+          this.$router.push({path: '/'});
+        }
+        // this.$router.go(-1)
       },
       register: function () {
         var that = this

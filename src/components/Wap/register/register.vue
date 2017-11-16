@@ -380,12 +380,13 @@
             Toast('恭喜您，注册成功')
             try{
               tokenMethods.setWapToken(res.data.token)
-              tokenMethods.setWapUser(res.data.data)  
+              tokenMethods.setWapUser(res.data.data)
+              this.$router.push({name: 'index', params: {redPacket: true}}) 
             }catch(e){
               console.log(e)
             }
             this.$destroy(true)
-            this.$router.push('/')
+            // this.$router.push({name: 'index'})
           } else {
             Toast(res.data.msg)
           }

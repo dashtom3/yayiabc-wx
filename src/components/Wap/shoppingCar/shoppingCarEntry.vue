@@ -104,7 +104,8 @@
         allMoeny: 0,
         sendDataList: [],
         alreadyLog: true,
-        isLoading:false
+        isLoading:false,
+        refresh: false
       }
     },
     created: function () {
@@ -125,6 +126,7 @@
           this.haveSelectedGoodNum = 0;
           this.sendDataList = [];
           var flag = true;
+          this.refresh = true
           for (let a = 0; a < this.gwcGoods.length; a++) {
             if (this.gwcGoods[a].checked && this.gwcGoods[a].state === 1) {
               this.allMoeny += this.gwcGoods[a].price * this.gwcGoods[a].num;
@@ -202,7 +204,7 @@
         })
       },
       logInHandler() {
-        this.$router.push({path: '/logIn'})
+        this.$router.push({path: '/logIn', query: {backName: '/shoppingCarEntry'}})
       },
       isGoTuSuborder:function () {
         var that = this;
@@ -347,6 +349,10 @@
         window.scroll(0, 0)
       },
       back: function () {
+        if (this.$route.query.backName) {
+           this.$router.push({path: this.$route.query.backName, query:{ refresh: this.refresh}})
+           return
+        }
         this.$router.push({path: '/productList', query:{ ListBack:'carEntry'}})
       },
       loadTop(){
@@ -360,7 +366,7 @@
       isLoaded(){
         this.$refs.loadmore.onTopLoaded();
       }
-    }
+    },
   }
 </script>
 <style lang="scss">

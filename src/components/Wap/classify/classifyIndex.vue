@@ -20,6 +20,8 @@ export default {
   },
   created: function() {
     var that = this
+    //解决iOS退出‘展会推荐’不显示的问题
+    window.scroll(1, 0)
     that.$emit('listenToChildEvent','classify')
   },
   methods: {

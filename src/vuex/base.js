@@ -18,7 +18,7 @@ export default function (url, params = {}) {
         Indicator.close();
       }).catch(err => {
         reject(err);
-      Indicator.close();
+        Indicator.close();
     });
   });
 }
@@ -37,7 +37,7 @@ export function get(url, params = {}) {
         }
       }).catch(err => {
         reject(err);
-      Indicator.close();
+        Indicator.close();
     });
   });
 }

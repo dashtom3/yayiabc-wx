@@ -161,5 +161,3 @@ export const GET_SALES_ORDERLIST = 'GET_SALES_ORDERLIST'                  // 获
 export const GET_SALES_ORDERDETAIL = 'GET_SALES_ORDERDETAIL'              // 获取业绩订单详情
 
 
-
-

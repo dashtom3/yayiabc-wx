@@ -177,8 +177,7 @@
             that.items = that.nowGoodDetails.propertyList;
             that.nowStock = that.nowGoodDetails.itemValueList[0].stockNum
             console.log(that.items,'items')
-            console.log(res.data.data
-              ,'stock')
+            console.log(res.data.data,'stock')
             that.$store.state.index.nowStock = that.nowGoodDetails.itemValueList[0].stockNum
             for(let i in that.nowGoodDetails.commentList){
               that.nowGoodDetails.commentList[i].created = util.formatDate.format(new Date( that.nowGoodDetails.commentList[i].created),'yyyy-MM-dd hh:mm:ss' );
@@ -224,16 +223,16 @@
       // 加数量
       addGoodNum:function () {
         var that = this
-        console.log(that.goodDefaultNum,'addGoodNum')
         that.goodDefaultNum = parseInt(that.goodDefaultNum)+1
+        that.$store.state.index.goodNum = that.goodDefaultNum
         that.jiSuanKuCun()
       },
       // 减数量
       reduceGoodNum:function () {
         var that = this
-        console.log(that.goodDefaultNum,'reduceGoodNum')
         if(that.goodDefaultNum !== 1){
           that.goodDefaultNum = parseInt(that.goodDefaultNum)-1
+          that.$store.state.index.goodNum = that.goodDefaultNum
         }
         that.jiSuanKuCun()
       },

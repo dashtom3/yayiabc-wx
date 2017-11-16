@@ -5,7 +5,7 @@
         <span>{{args.itemBrandName == null ? '全部品牌': args.itemBrandName}}</span>
         <img class="brandDown" src="../../../images/ProductList/searchDown.png" alt="">
         <ul :class="['allProduct',{allProductHidden:showBrand}]">
-          <li v-for="(item,index) in brandList" @click="brandSearch(item.itemBrandName,index)" :class="{brand_li:item.itemBrandName == args.itemBrandName}">
+          <li v-for="(item,index) in brandList" @click="brandSearch(item.itemBrandName,index)" :class="{brand_li:item.itemBrandName == args.itemBrandName}" :key="index">
             {{item.itemBrandName == null ? '全部品牌': item.itemBrandName}}
             <img v-show="item.itemBrandName == args.itemBrandName" class="brand_checked" src="../../../images/ProductList/brandChecked.png" alt="">
           </li>
@@ -30,9 +30,9 @@
       <!-- <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore> -->
       <div class="Content_main gridlist-demo-container">
       <div ref="scrollBox" class="Content_list" v-infinite-scroll="loadMore" infinite-scroll-immediate-check="true" >
-        <div v-for="(item,index) in productData" @click="goProductDetail(item)">
+        <div v-for="(item,index) in productData" @click="goProductDetail(item)" :key="index">
           <div>
-            <img class="product_pic" :src="item.itemDetail.itemPica +'?imageView2/1/w/80/h/80'" alt="">
+            <img class="product_pic" :src="item.itemDetail.itemPica +'?imageView2/1/w/400/h/400'" alt="">
           </div>
           <div>
             <h3>{{item.itemName}}</h3>
@@ -187,6 +187,7 @@
     created() {
       var self = this;
       Indicator.open();
+      console.log(1111)
       self.args.oneClassify = self.$route.params.oneClassify;
       self.args.twoClassify = self.$route.params.twoClassify;
 //      this.args.keyWord = this.$route.params.word;
@@ -211,6 +212,7 @@
     },
     mounted(){
       let _this = this;
+      Indicator.open();
       this.$refs.scrollBox.onscroll = function () {
         _this.scrollTopRight = _this.$refs.scrollBox.scrollTop;
       };
@@ -273,15 +275,18 @@
       },
       //获取品牌列表
       getBrandList() {
+        Indicator.open();
         this.$store.dispatch(GET_BRAND_LIST, {})
           .then(res => {
             // this.brandList = res;
             for(var i=0;i<res.length;i++){
               this.brandList.push(res[i]);
             }
+            Indicator.close();
           })
           .catch(err => {
             console.log(err);
+            Indicator.close();
           });
       },
       //获取产品列表
@@ -289,11 +294,13 @@
         let that = this;
         that.isLoading = true;
         that.noMoreGood = false;
+        Indicator.open();
         this.$store.dispatch(QUERY_ITEM_SEARCH_POST, this.args)
           .then(res => {
             res.data.data.forEach(function (item) {
               that.productData.push(item);
             })
+            Indicator.close();
             that.args.totalPage = res.data.totalPage;
             // console.log('aaaaa',this.args,res.data);
 //              this.productNum = this.productData.map(item => []);  //返回0
@@ -328,9 +335,7 @@
           });
       },
       brandSearch(brand,index){
-        console.log(brand)
         this.args.itemBrandName = brand;
-        console.log(this.args.itemBrandName);
         this.productData = [];
         this.productNum = [];
         this.args.currentPage = 1;
@@ -364,7 +369,7 @@
           this.addInCar(index, item.itemValueList[0].itemSKU, -1)
         }else{
           MessageBox.confirm('请先登录!').then(action => {
-            this.$router.push({path: '/logIn'})
+            this.$router.push({path: '/logIn', query: {backName: '/productList'}})
           })
         }
       },
@@ -391,7 +396,7 @@
 
         }else{
           MessageBox.confirm('请先登录!').then(action => {
-            self.$router.push({path: '/logIn'})
+            self.$router.push({path: '/logIn', query: {backName: '/productList'}})
           })
         }
       },
@@ -550,7 +555,7 @@
         })
         }else{
           MessageBox.confirm('请先登录!').then(action => {
-            self.$router.push({path: '/logIn'})
+            self.$router.push({path: '/logIn', query: {backName: '/productList'}})
           })
         }
       },
@@ -649,7 +654,7 @@
           }
         }else{
           MessageBox.confirm('请先登录!').then(action => {
-            this.$router.push({path: '/logIn'})
+            this.$router.push({path: '/logIn', query: {backName: '/productList'}})
           })
         }
       },

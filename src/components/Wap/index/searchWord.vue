@@ -13,7 +13,7 @@
         <img class="delete_img" @click="deleteHistory" src="../../../images/index/delete.png" alt="img">
       </div>
       <div>
-        <span class="historyBtn" v-for="(item,index) in userHistory" v-if="index<8" @click="search_cargo(item)">{{item}}</span>
+        <span class="historyBtn" v-for="(item,index) in userHistory" v-if="index<8" @click="search_cargo(item)" :key="index">{{item}}</span>
       </div>
     </div>
     <div class="history_box">
@@ -21,7 +21,7 @@
         <p class="history_word">商品分类</p>
       </div>
       <div>
-        <span class="historyBtn" v-for="(classify,index) in $store.state.index.classifyList" v-if="index<8" @click="goToList(classify)">{{classify.oneClassify}}</span>
+        <span class="historyBtn" v-for="(classify,index) in $store.state.index.classifyList" v-if="index<8" @click="goToList(classify)" :key="index">{{classify.oneClassify}}</span>
       </div>
     </div>
   </div>
@@ -78,7 +78,6 @@ export default {
       }
       that.$store.dispatch('SEARCH_WORD', obj).then((res) => {
         if (res.data.callStatus === 'SUCCEED') {
-          console.log(res.data,'searchWord')
           if (res.data.data.length !== 0) {
             if (JSON.parse(tokenMethods.getHistory()) == null) {
               that.userHistory = []
@@ -93,7 +92,6 @@ export default {
                 }
               }
               that.userHistory = userHistoryData
-              console.log(that.userHistory,'9999')
             }
             tokenMethods.setHistory(that.userHistory)
           }

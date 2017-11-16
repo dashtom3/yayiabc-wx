@@ -15,6 +15,12 @@
     <Carousel></Carousel>
     <mainEnter></mainEnter>
     <classifyBox></classifyBox>
+    <!-- 注册成功弹出该蒙层 -->
+    <div class="redPacketWrapper" v-show="isShow">
+      <img class="redPacket" src="../../../images/index/redPacket.png">
+      <div class="btn-use" @click.stop="useRedPacket"></div>
+      <img class="close" src="../../../images/index/close.png" @click.stop="hideRedPacket">
+    </div>
 <!--     <Brand></Brand>
     <Classify></Classify> -->
   </div>
@@ -32,6 +38,7 @@ export default {
     return {
       popupVisible: false,
       searchCargo: '',
+      isShow: false
     }
   },
   components: {
@@ -45,6 +52,11 @@ export default {
     var that = this
     that.$store.dispatch('GET_CLASSIFY_QUERY')
     that.$emit('listenToChildEvent','index')
+    if (this.$route.params.redPacket === true) {
+      this.isShow = true;
+    } else {
+      this.isShow = false;
+    }
   },
   methods: {
     //左侧弹出框
@@ -64,6 +76,13 @@ export default {
     searchActive: function() {
       var that = this
       that.$router.push({ path: '/searchWord', query: { data: 'focus' }})
+    },
+    useRedPacket() {
+      this.isShow = false;
+      this.$router.push({path: '/productList'})
+    },
+    hideRedPacket() {
+      this.isShow = false;
     }
   }
 }
@@ -124,5 +143,38 @@ export default {
   top: 3.5vw;
   left: 6vw;
 }
+.redPacketWrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .2);
+    z-index: 9999;
+    .redPacket{
+      position: absolute;
+      top: px2vw(328);
+      left: 50%;
+      transform: translateX(-50%);
+      width: px2vw(450);
+      height: px2vw(576);
+    }
+    .btn-use{
+      position: absolute;
+      top: px2vw(789);
+      left: 50%;
+      transform: translateX(-50%);
+      width: px2vw(236);
+      height: px2vw(70);
+    }
+    .close{
+      position: absolute;
+      top: px2vw(947);
+      left: 50%;
+      transform: translateX(-50%);
+      width: px2vw(60);
+      height: px2vw(60);
+    }
+  }
 </style>
 

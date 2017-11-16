@@ -197,7 +197,7 @@
         })
       },
       logInHandler() {
-        this.$router.push({path: '/logIn'})
+        this.$router.push({path: '/logIn', query: {backName: '/yayi/shoppingCar'}})
       },
       back: function () {
         this.$router.go(-1)

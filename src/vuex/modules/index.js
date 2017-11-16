@@ -90,6 +90,7 @@ const mutations = {
   [types.SAVE_CHANGE_VERIFY](state,all) {
     state.saveChangeVerify = all;
   },
+
   [types.SAVE_TIME_COUNT](state,time) {
     state.TXData.timeTX = 60;
     state.TXData.text = '秒后重发验证码';
@@ -194,6 +195,7 @@ const actions = {
   [types.PUSH_TQB_NUM_TYPE]({commit}, all){
     commit(types.PUSH_TQB_NUM_TYPE,all)
   },
+
   // 获取首页轮播图
   [types.GET_CAROUSEL]() {
     return new Promise((resolve, reject) => {

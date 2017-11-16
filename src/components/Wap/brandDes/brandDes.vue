@@ -189,7 +189,7 @@ export default {
         }
       } else {
         MessageBox.confirm('请先登录!').then(action => {
-          that.$router.push({path: '/logIn'})
+          that.$router.push({path: '/logIn', query: {backName: that.$route.fullPath}})
         });
       }
     },
@@ -264,7 +264,7 @@ export default {
         // }
       } else {
         MessageBox.confirm('请先登录!').then(action => {
-          that.$router.push({path: '/logIn'})
+          that.$router.push({path: '/logIn', query: {backName: that.$route.fullPath}})
         })
       }
     },
@@ -298,7 +298,7 @@ export default {
         }
       } else {
         MessageBox.confirm('请先登录!').then(action => {
-          that.$router.push({path: '/logIn'})
+          that.$router.push({path: '/logIn', query: {backName: that.$route.fullPath}})
         })
       }
     },
@@ -314,7 +314,7 @@ export default {
       sessionStorage.setItem('backJudgeSKL', 'passSecond');
       sessionStorage.setItem('backParamsDetailsID', backParams.itemId);
       sessionStorage.setItem('backParamsDetailsName', backParams.brandName);
-      this.$router.push({path: '/shoppingCarEntry'});
+      this.$router.push({path: '/shoppingCarEntry', query: {backName: this.$route.fullPath}});
     },
 
     back: function() {
@@ -332,6 +332,10 @@ export default {
         this.$router.push({name: 'orderDetail'})
         sessionStorage.removeItem('backJudgeSL')
       } else {
+        if (this.$route.query.refresh) {
+          this.$router.push({path:'/productList'});
+          return;
+        }
         this.$router.push({path:'/productList',query:{ListBack: 'detail'}});
       }
     },

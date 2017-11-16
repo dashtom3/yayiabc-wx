@@ -10,13 +10,13 @@
         <p class="logistics-id"><span class="title">快递单号：</span>{{LogisticCode}}</p>
       </div>
     </div>
+    <div class="split"></div>
     <div class="logistics-timeline" v-if="isInfo">
       <time-line v-for="(item,index) in logistics.Traces" :key="index">
         <span slot="time">{{item.AcceptTime}}</span>
         <span slot="dec">{{item.AcceptStation}}</span>
       </time-line>
     </div>
-    <div class="split"></div>
     <div v-if="!isInfo" class="noMail">
       <img src="../../../../images/order/noMail.png" alt="">
       <p>暂无物流信息，请耐心等候~</p>
@@ -126,7 +126,7 @@
     }
     .order-info {
       display: flex;
-      padding: px2vw(103) px2vw(20) px2vw(30);
+      padding: px2vw(120) px2vw(20) px2vw(30);
       background-color: #fff;
       // margin-bottom: px2vw(20);
       .image {
@@ -138,6 +138,7 @@
       }
       .logistics-info {
         flex: 1;
+        padding-top: px2vw(6);
         .logistics-company {
           margin-bottom: px2vw(26);
         }
