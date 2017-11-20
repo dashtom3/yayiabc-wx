@@ -45,7 +45,7 @@
                   <span class="invalid" v-else>失效</span>
                 </div>
                 <div class="img-wrap fl" @click="goProductDetail(good)">
-                  <img :src="good.pic" alt="已购买商品">
+                  <img :src="good.pic" width="100%" height="100%" alt="已购买商品">
                   <!-- +'?imageView2/1/w/80/h/80' -->
                 </div>
               </div>
@@ -139,7 +139,7 @@
           let arr = this.gwcGoods.filter((item) => {
             return item.state === 1
           })
-          if(arr.length === this.sendDataList.length){
+          if(arr.length === this.sendDataList.length && this.sendDataList.length > 0){
             flag = true;
           }
           if (flag) {
@@ -197,6 +197,7 @@
           that.$store.dispatch('DEL_CAR_GOODS', obj).then((res) => {
             if (res.data.callStatus === 'SUCCEED') {
               Toast('已移出购物车！')
+              that.$store.state.index.goodNum = 1
               that.gwcGoods.splice(index, 1);
             }
           })
@@ -553,8 +554,8 @@
             over-flow: hidden;
             text-align: center;
             img {
-              width: px2vw(170);
-              height: px2vw(170);
+              // width: px2vw(170);
+              // height: px2vw(170);
               vertical-align: middle;
               display: block;
               position: absolute;

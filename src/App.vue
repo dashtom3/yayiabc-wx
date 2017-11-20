@@ -97,7 +97,10 @@
     transition: all 0.3s ease;
     opacity: 0;
   }
-
+  .mint-indicator{
+    position: relative;
+    z-index: 9999;
+  }
   .mint-indicator-wrapper{
     z-index: 1000;
   }

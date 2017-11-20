@@ -133,6 +133,8 @@
             payTypeText = '支付宝支付'
             break
           case 1:
+          case 4:
+          case 5:
             payTypeText = '微信支付'
             break
           case 2:

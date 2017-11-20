@@ -68,20 +68,20 @@
           this.textContent = '口腔外科'
         }else if(index1 === 1)
         {
-          this.theClassImg = 'static/images/ZZ.jpg'
-          this.textContent = '口腔种植'
-        }else if(index1 === 2)
-        {
-          this.textContent = '口腔正畸'
-          this.theClassImg = 'static/images/ZQ.jpg'
-        }else if(index1 === 3)
-        {
-          this.textContent = '口腔内科'
           this.theClassImg = 'static/images/KQNK.jpg'
-        }else if(index1 === 4)
+          this.textContent = '口腔内科'
+        }else if(index1 === 2)
         {
           this.textContent = '口腔修复'
           this.theClassImg = 'static/images/XF.jpg'
+        }else if(index1 === 3)
+        {
+          this.textContent = '口腔正畸'
+          this.theClassImg = 'static/images/ZQ.jpg'
+        }else if(index1 === 4)
+        {
+          this.textContent = '口腔种植'
+          this.theClassImg = 'static/images/ZZ.jpg'
         }
         var that = this
         that.defaultOne = index1

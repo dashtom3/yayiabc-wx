@@ -44,6 +44,7 @@ const state = {
   companyInvoice: {}, //保存普通公司发票信息
 
   checkedDate: {},//保存创客我的业绩选择的日期
+  moduleShow: false, //保存乾币充值页面的模态框状态 
 }
 
 const getters = {
@@ -77,6 +78,9 @@ const getters = {
   [types.COMPANY_INVOICE]: state => {
     return state.companyInvoice
   },
+  moduleShow: state => {
+    return state.moduleShow
+  }
 };
 
 const mutations = {
@@ -162,6 +166,10 @@ const mutations = {
   //保存创客我的业绩选择的日期
   [types.SAVE_CK_CHECKED_DATE](state, all) {
     state.checkedDate = all
+  },
+  // 设置模态框的值
+  [types.SET_MODULE_STATUS](state, status) {
+    state.moduleShow = status
   }
 }
 
@@ -195,7 +203,9 @@ const actions = {
   [types.PUSH_TQB_NUM_TYPE]({commit}, all){
     commit(types.PUSH_TQB_NUM_TYPE,all)
   },
-
+  setModuleStatus({commit}, status) {
+    commit(types.SET_MODULE_STATUS, status)
+  },
   // 获取首页轮播图
   [types.GET_CAROUSEL]() {
     return new Promise((resolve, reject) => {

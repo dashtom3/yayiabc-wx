@@ -1,8 +1,8 @@
 <template>
   <div class="classifyBox">
 
-    <div class="Box_list1" @click="gotoProductList(classify.cl1)">
-      <div class="Box_list1_img1">
+    <div class="Box_list1">
+      <div class="Box_list1_img1" @click="gotoProductList(classify.cl1)">
 
         <div>
           <span class="upText">
@@ -15,6 +15,7 @@
         </div>
         <img class="Box_img" src="../../../images/index/Box_list1_img1.jpg" alt="img">
       </div>
+
       <div class="Box_list1_img2" @click="gotoProductList(classify.cl2)">
         <div>
           <span class="upText">{{classify.cl2}}</span>
@@ -24,6 +25,7 @@
         </div>
         <img class="Box_img" src="../../../images/index/Box_list1_img2.jpg" alt="img">
       </div>
+
       <div class="Box_list1_img3" @click="gotoProductList(classify.cl3)">
         <div>
           <span class="upText">{{classify.cl3}}</span>
@@ -83,9 +85,8 @@ export default {
   methods: {
     gotoProductList(classify){
 //      this.$store.dispatch('SAVE_ROOT_ROUTER', 1) //跳转判断
-
+      console.log(classify)
       sessionStorage.setItem('backJudgeIndex', 'index');
-
       this.$router.push({ name: 'productList', params: { oneClassify: classify , twoClassify: ''}})
     }
   }

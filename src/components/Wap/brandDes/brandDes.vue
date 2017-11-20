@@ -415,7 +415,7 @@ export default {
   top:0;
   left: 0;
   background: #fff;
-  z-index: 9999;
+  z-index: 2014;
 }
 .header_box {
   width: px2vw(70);

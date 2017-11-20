@@ -3,7 +3,7 @@
     <order-header>物流信息</order-header>
     <div class="order-info">
       <div class="image">
-        <img :src="order.orderitemList[0].picPath" alt="" width="100%" height="100%">
+        <img :src="order.orderitemList[0].picPath +'?imageView2/1/w/400/h/400'" alt="" width="100%" height="100%">
       </div>
       <div class="logistics-info">
         <p class="logistics-company"><span class="title">物流公司：</span>{{EBusinessCompany}}</p>
@@ -56,6 +56,8 @@
           case 'SF':
             eBusinessCompany = '顺丰'
             break
+          case 'DBL':
+            eBusinessCompany = '德邦'
           default:
             break
         }
@@ -154,14 +156,16 @@
   }
   .noMail{
     img{
-      position: fixed;
+      // position: fixed;
+      position: absolute;
       top:px2vw(530);
       left: px2vw(307);
       width: px2vw(136);
       height: px2vw(128);
     }
     p{
-      position: fixed;
+      // position: fixed;
+      position: absolute;
       width: 100%;
       text-align: center;
       top:px2vw(694);

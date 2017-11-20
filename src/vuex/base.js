@@ -28,13 +28,23 @@ export function get(url, params = {}) {
     Indicator.open();
     axios.get(HOST + url, {params})
       .then((res) => {
+        if (res.status === 500 || res.status === 503 || res.status === 504) {
+          Indicator.close();
+          Indicator.open({
+            text: '服务器出小差了',
+            spinnerType: 'fading-circle'
+          });
+          setTimeout(() => {
+            Indicator.close();
+          }, 2000)
+          return
+        }
         if (res.data.callStatus === 'SUCCEED') {
           resolve(res.data.data);
-          Indicator.close();
         } else {
           if (res.data.data) resolve(res.data);
-          Indicator.close();
         }
+        // Indicator.close();
       }).catch(err => {
         reject(err);
         Indicator.close();
@@ -158,13 +168,23 @@ export function post(url, params) {
     axios.post(HOST + url, temp)
       .then((res) => {
         // console.log(JSON.stringify(res), 'base>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..')
+        if (res.status === 500 || res.status === 503 || res.status === 504) {
+          Indicator.close();
+          Indicator.open({
+            text: '服务器出小差了',
+            spinnerType: 'fading-circle'
+          });
+          setTimeout(() => {
+            Indicator.close();
+          }, 2000)
+          return
+        }
         if (res.data.callStatus === 'SUCCEED') {
           resolve(res);
-          Indicator.close();
         } else {
           resolve(res);
-          Indicator.close();
         }
+        Indicator.close();
       }).catch((err) => {
       // console.log(JSON.stringify(err), 'base>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..')
       reject('网络请求错误');

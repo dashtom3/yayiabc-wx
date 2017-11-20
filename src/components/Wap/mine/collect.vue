@@ -8,8 +8,8 @@
       </div>
 
     </div>
-    <mt-loadmore :top-method="loadTop" :auto-fill='true' ref="loadmore" class="c-content" v-on:top-status-change="isState">
-      <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
+    <!-- <mt-loadmore :top-method="loadTop" :auto-fill='true' ref="loadmore" class="c-content" v-on:top-status-change="isState"> -->
+      <!-- <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore> -->
     <!--收藏列表开始-->
       <div class="box_position" v-show="collectData != 0">
 
@@ -42,7 +42,7 @@
       <div v-show="collectData == 0" class="collect_pic">
         <img  src="../../../images/mine/collect_pic.png" alt="" v-if="!isLoading">
       </div>
-    </mt-loadmore>
+    <!-- </mt-loadmore> -->
     <!--末尾-->
   </div >
 </template>

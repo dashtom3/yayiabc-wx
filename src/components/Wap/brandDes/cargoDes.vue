@@ -102,6 +102,7 @@
       var that = this
       Indicator.open()
       that.getNowGoodDetail()
+      that.$store.state.index.goodNum = 1
       that.$store.state.index.goodSku = that.jiSuanSku().sku
     },
     methods:{
@@ -112,6 +113,7 @@
           Toast({message: '数量超出范围！', duration: 1500})
         }
         this.goodDefaultNum = numVal > this.nowStock ? this.nowStock : numVal
+        this.$store.state.index.goodNum = this.goodDefaultNum
         // this.updataNum(this.gwcGoods[index].num, row)
       },
       keyupHandler($event){
@@ -123,6 +125,7 @@
             Toast({message: '数量超出范围！', duration: 1500})
           }
           this.goodDefaultNum = numVal > this.nowStock ? this.nowStock : numVal
+          this.$store.state.index.goodNum = this.goodDefaultNum
           // this.updataNum(this.gwcGoods[index].num, row)
         }
       },
@@ -439,6 +442,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
 @import "../../../common/sass/factory";
+  .cargoDes{
+    padding-top: px2vw(160)
+  }
   .infoLeft {
     width: 100vw;
     height: 100vw;

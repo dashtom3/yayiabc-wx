@@ -15,6 +15,7 @@
         if (sessionStorage.getItem('toOrder') === 'detail') {
           let state = sessionStorage.getItem('ORDER_STATE')
           // let go = this.$router.push.bind(this.$router)
+          console.log(sessionStorage.getItem('ORDER_STATE'));
           this.$router.push({path: '/order/orderSubpage/' + state})
           sessionStorage.removeItem('toOrder')
         } else {

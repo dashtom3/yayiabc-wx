@@ -69,6 +69,7 @@
       <router-view></router-view>
       </div>
       <!--末尾-->
+      <div class="moduleM" v-if="moduleShow"></div>
     </div>
 </template>
 
@@ -109,6 +110,7 @@
     computed:{
       ...mapGetters([
         'saveJumpIndex',
+        'moduleShow'
       ])
     },
     methods:{
@@ -317,5 +319,16 @@
       background-color: #b4b4b4 !important;
 
     }
+    .moduleM{
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height:100vh;
+    z-index: 110;
+  }
 </style>
 

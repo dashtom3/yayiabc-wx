@@ -42,6 +42,7 @@
       var classifName = this.$route.params;
       this.idx = classifName.oneClassify;
       this.idx_next = classifName.twoClassify;
+      this.setClassify();
       this.$store.dispatch(SHOW_CLASSIFY, {})
         .then(res => {
           this.leftDate = res;
@@ -91,6 +92,7 @@
     width: 100%;
     /*min-height: px2vw(920);*/
     background: #f4f4f4;
+    overflow: hidden;
   }
 
   .main_ul > li {

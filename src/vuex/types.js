@@ -160,4 +160,4 @@ export const GET_SALES_ECHARTS = 'GET_SALES_ECHARTS'                      // 获
 export const GET_SALES_ORDERLIST = 'GET_SALES_ORDERLIST'                  // 获取业绩订单列表
 export const GET_SALES_ORDERDETAIL = 'GET_SALES_ORDERDETAIL'              // 获取业绩订单详情
 
-
+export const SET_MODULE_STATUS = 'SET_MODULE_STATUS'                      // 设置乾币充值页的模态框的显示状态

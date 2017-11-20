@@ -60,13 +60,14 @@
     <mu-raised-button label="立即支付" class="pay" @click="pay"/>
     <!--立即支付结束-->
     <!--末尾-->
-    <div class="moduleM" v-if="moduleShow"></div>
+    <!-- <div class="moduleM" v-if="moduleShow"></div> -->
   </div>
 </template>
 
 <script>
   import {tokenMethods} from '../../../vuex/util'
   import {Toast,Indicator} from 'mint-ui'
+  import {mapActions} from 'vuex'
   export default {
     name: 'coinDetail',
     data(){
@@ -80,7 +81,7 @@
         placeH: '请输入本次充值乾币个数',
         coin: true,
         coinallprice: '',
-        moduleShow:false
+        // moduleShow:false
       }
     },
     watch:{
@@ -152,7 +153,8 @@
           text: '支付数据处理中...',
           spinnerType: 'fading-circle'
         });
-        that.moduleShow = true;
+        that.setModuleStatus(true)
+        // that.moduleShow = true;
         if (code && wx_state == 1) {
           var wxData = JSON.parse(window.sessionStorage.getItem('wxCoin'))
 //        Indicator.open()
@@ -247,7 +249,8 @@
                     var timer = setInterval(function(){
                       if (that.kk == 600) {
                         clearInterval(timer)
-                        that.moduleShow = false;
+                        // that.moduleShow = false;
+                        that.setModuleStatus(false)
                         Indicator.close()
                         return false
                       }
@@ -256,12 +259,14 @@
                           clearInterval(timer)
 //                          alert(window.location.href);
                           that.$router.push({ name: 'payResult', params: {moneyCoins: wxData.money, amount: wxData.amount}})
-                          that.moduleShow = false;
+                          // that.moduleShow = false;
+                          that.setModuleStatus(false)
                           Indicator.close()
                           window.sessionStorage.removeItem('wxState')
                           window.sessionStorage.removeItem('wxCoin')
                         } else {
-                          that.moduleShow = false;
+                          // that.moduleShow = false;
+                          that.setModuleStatus(false)
                           Indicator.close()
                           window.sessionStorage.removeItem('wxState')
                           console.log("充值失败")
@@ -276,7 +281,8 @@
 //                  }
                   },
                   cancel: function (res) {
-                    that.moduleShow = false;
+                    // that.moduleShow = false;
+                    that.setModuleStatus(false)
                     Indicator.close()
                     that.$router.go(-1)
                     window.sessionStorage.removeItem('wxState')
@@ -286,13 +292,15 @@
               wx.error(function(res){
 //              alert(res.err_msg);
 //              alert('aa');
-                that.moduleShow = false;
+                // that.moduleShow = false;
+                that.setModuleStatus(false)
                 Indicator.close()
                 window.sessionStorage.removeItem('wxState')
                 return false;
               });
             } else {
-              that.moduleShow = false;
+              // that.moduleShow = false;
+              that.setModuleStatus(false)
               Indicator.close()
               console.log("充值失败")
               window.sessionStorage.removeItem('wxState')
@@ -302,7 +310,8 @@
           that.placeH = '请输入本次充值乾币个数'
           that.coin = true
           window.sessionStorage.removeItem('wxCoin');
-          that.moduleShow = false;
+          // that.moduleShow = false;
+          that.setModuleStatus(false)
           Indicator.close()
         }
       }
@@ -370,7 +379,10 @@
       select_12000(){
         this.selectCoinShow = 12000;
         this.qbType = 'a_qb'
-      }
+      },
+      ...mapActions([
+        'setModuleStatus'
+      ]),
     }
   }
 </script>
