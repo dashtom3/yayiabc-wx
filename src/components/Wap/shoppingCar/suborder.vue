@@ -530,7 +530,7 @@
                 window.sessionStorage.removeItem('qbCount')
                 window.sessionStorage.removeItem('paper');
                 window.sessionStorage.removeItem('departure');
-                that.$router.push({ name: 'paySucced', params: {orderId: res.data.data.OrderId, payMoney: res.data.data.actualPay}})
+                that.$router.push({ name: 'paySucced', params: {orderId: res.data.data.OrderId, payMoney: res.data.data.actualPay, canHasCoin: that.canHasCoin}})
               } else {
                 Indicator.close();
                 let orderD = res.data.data;
@@ -744,7 +744,9 @@
           this.$store.state.index.addressBack = 1;
           this.$router.push({path:'/addAddress', query:{editJudge: -2}});
         }else {
-          this.$router.push({path:'/confirmAddress'});
+          // this.$router.push({path:'/confirmAddress'});
+          sessionStorage.setItem('backJudgeAddress', 'fromAddressSuborder');
+          this.$router.push({path: '/address'});
         }
 
       }

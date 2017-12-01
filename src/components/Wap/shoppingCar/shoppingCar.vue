@@ -19,8 +19,8 @@
       </el-checkbox>
     </div>
     <div class="scroll-wrapper">
-      <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState">
-        <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
+      <!-- <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState"> -->
+        <!-- <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore> -->
       <ul class="shoppingList">
         <li v-for="(good, index) in gwcGoods" :key="good.itemPropertyInfo">
           <mt-cell-swipe
@@ -71,7 +71,7 @@
           </mt-cell-swipe>
         </li>
       </ul>
-      </mt-loadmore>
+      <!-- </mt-loadmore> -->
     </div>
     <div class="shopping-footer" v-if="gwcGoods.length">
       <div class="border needclick fl">

@@ -23,8 +23,8 @@
         </el-checkbox>
       </div>
       <div class="scroll-wrapper">
-        <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState">
-          <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore>
+        <!-- <mt-loadmore :top-method="loadTop" :auto-fill=false ref="loadmore" class="c-content" v-on:top-status-change="isState"> -->
+          <!-- <topLoadMore ref="topLoadMore" slot="top" :loading="isLoading" :loaded="isLoaded"></topLoadMore> -->
         <ul class="shoppingList">
           <li v-for="(good, index) in gwcGoods" :key="good.itemPropertyInfo">
             <mt-cell-swipe
@@ -75,7 +75,7 @@
             </mt-cell-swipe>
           </li>
         </ul>
-        </mt-loadmore>
+        <!-- </mt-loadmore> -->
       </div>
     </div>
     <div class="shopping-footer clearfix" v-if="gwcGoods.length">
@@ -217,6 +217,7 @@
           that.sendDataList[i].picPath = that.sendDataList[i].pic;
           that.sendDataList[i].goodBrandName = that.sendDataList[i].itemBrandName;
           that.sendDataList[i].goodSort = that.sendDataList[i].itemSort;
+           that.sendDataList[i].goodQb = that.sendDataList[i].itemQb
         }
         sendData.details = that.sendDataList;
         sendData.haveSelectedGoodNum = that.haveSelectedGoodNum;

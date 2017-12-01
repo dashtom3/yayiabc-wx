@@ -36,14 +36,14 @@
               {{qbNum.aqb}}
             </div>
           </li>
-          <li>
+          <!-- <li>
             <div>
               <img src="../../../images/mine/coinMoney9.png" alt="">
             </div>
             <div>
               {{qbNum.bqb}}
             </div>
-          </li>
+          </li> -->
           <li>
             <div>
               <img src="../../../images/mine/coinMoney8.png" alt="">
@@ -84,7 +84,7 @@
         qbNum: {
           qbBalance: 0,
           aqb: 0,
-          bqb: 0,
+          // bqb: 0,
           cqb: 0,
           sum: 0
         }
@@ -124,9 +124,9 @@
         this.$store.dispatch('GET_USERS_DATA',obj).then((res) => {
           this.qbNum.qbBalance = res.data.data.qbBalance;
           this.qbNum.aqb = res.data.data.cQb;
-          this.qbNum.bqb = res.data.data.bQb;
+          // this.qbNum.bqb = res.data.data.bQb;
           this.qbNum.cqb = res.data.data.aQb;
-          this.qbNum.sum = this.qbNum.cqb + this.qbNum.bqb + this.qbNum.aqb + this.qbNum.qbBalance;
+          this.qbNum.sum = this.qbNum.cqb + this.qbNum.aqb + this.qbNum.qbBalance;
         })
       },
       toBack(){
