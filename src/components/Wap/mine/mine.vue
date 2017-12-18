@@ -233,7 +233,7 @@
         this.$router.push({path: '/appSetting'})
       },
       toGoPerson() {
-        this.$router.push({path: '/personalData'})
+        this.$router.push({path: '/account'})
       },
       toPayment() {
         this.$router.push({path: '/coinDetail'})
@@ -252,7 +252,7 @@
         this.$router.push({path: '/collect'});
       },
       goToMine: function () {
-        this.$router.push({path: '/personalData'})
+        this.$router.push({path: '/account'})
       },
       goToCustomer: function () {
         this.$router.push({path: '/customerService'})

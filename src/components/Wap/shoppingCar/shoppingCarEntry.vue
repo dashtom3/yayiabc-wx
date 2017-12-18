@@ -379,11 +379,9 @@
     overflow: hidden;
     border: none;
   }
-
   .shoppingCar .mint-cell-title {
     display: none;
   }
-
   .shoppingCar .mint-cell-value {
     // margin-top: 8px;
     margin-top: px2vw(20);

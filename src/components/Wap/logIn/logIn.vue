@@ -6,7 +6,7 @@
       </div>
       <span class="logWithCode">登录</span>
     </div>
-    <div>
+    <div class="logIn-content">
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab :class="{ active: isActive1}" value="tab1" title="账号密码登录"/>
         <mu-tab :class="{ active: isActive2}" value="tab2" title="短信登录"/>
@@ -195,6 +195,9 @@
   .logIn {
     background-color: #fff;
     z-index: 99;
+  }
+  .logIn-content{
+    margin-top: px2vw(88);
   }
   .back-btn {
     width: px2vw(88);

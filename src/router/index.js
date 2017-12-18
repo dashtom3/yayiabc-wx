@@ -79,6 +79,9 @@ const Standard = resolve => require(['@/components/salesWap/index/standard'], re
 /*ProductList组件*/
 const ProductList = resolve => require(['@/components/Wap/ProductList/ProductList.vue'], resolve)
 
+// 账户信息
+const accountInfo = resolve => require(['@/components/Wap/mine/accountInfo'], resolve)
+const qualifications = resolve => require(['@/components/Wap/mine/qualifications'], resolve)
 
 Vue.use(Router)
 
@@ -402,6 +405,21 @@ let router = new Router({
       name: 'feedback',
       path: '/feedback',
       component: feedback
+    },
+    {
+      name: 'accountInfo',
+      path: '/account',
+      component: accountInfo,
+    },
+    {
+      name: 'editor',
+      path: '/account/editor',
+      component: personalData
+    },
+    {
+      name: 'qualifications',
+      path: '/account/qualifications',
+      component: qualifications
     },
   ],
 })

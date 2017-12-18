@@ -4,9 +4,8 @@ import {tokenMethods} from "./util"
 import {Toast, Indicator, MessageBox} from 'mint-ui';
 
 
-const HOST = 'http://47.93.48.111:6181/api'; //测试端口
-
-
+// const HOST = 'http://47.93.48.111:6181/api'; //测试端口
+const HOST = 'http://116.62.228.3:8080/api';    //测试端口
 // const HOST = 'http://47.93.48.111:8080/api';  //正式数据端口
 
 export default function (url, params = {}) {
@@ -189,7 +188,7 @@ export function post(url, params) {
       // console.log(JSON.stringify(err), 'base>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..')
       reject('网络请求错误');
       Indicator.close();
-      Toast({message: '网络请求错误!', duration: 3000})
+      Toast({message: '服务器出小差了!', duration: 3000})
     });
   });
 }
@@ -222,7 +221,7 @@ export function getWithToken(url, params = {}) {
       // console.log(JSON.stringify(err), 'base>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..')
       reject('网络请求错误');
       Indicator.close();
-      Toast({message: '网络请求错误!', duration: 3000})
+      Toast({message: '服务器出小差了!', duration: 3000})
     });
   });
 }
@@ -259,7 +258,7 @@ export function postWithToken(url, params) {
       }).catch(() => {
       reject('网络请求错误');
       Indicator.close();
-      Toast({message: '网络请求错误!', duration: 3000})
+      Toast({message: '服务器出小差了!', duration: 3000})
     });
   });
 }
@@ -285,7 +284,7 @@ export function getWithSaleToken(url, params = {}) {
       .catch(() => {
         Indicator.close()
         reject('网络请求错误')
-        Toast({message: '网络请求错误!', duration: 3000})
+        Toast({message: '服务器出小差了!', duration: 3000})
       });
   });
 }
@@ -315,7 +314,7 @@ export function postWithSaleToken(url, params) {
       .catch(() => {
         Indicator.close()
         reject('网络请求错误');
-        Toast({message: '网络请求错误!', duration: 3000})
+        Toast({message: '服务器出小差了!', duration: 3000})
       });
   });
 }
